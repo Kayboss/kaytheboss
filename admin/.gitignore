@@ -1,0 +1,8 @@
+# Generated / local-only admin files — never commit these
+node_modules/
+dist/
+.env
+.studio/
+.sanity/
+env.local
+*.sanity-backup-*.tar.gz

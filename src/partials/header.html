@@ -1,0 +1,33 @@
+<a class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-[#F5C842] focus:text-[#08080a] focus:font-bold focus:rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#F5C842]" href="#main-content">Skip to Main Content</a>
+
+<div aria-hidden="true" class="fixed top-0 left-0 h-[2px] bg-gradient-to-r from-[#ffe08f] via-[#F5C842] to-[#eec13c] z-[60] w-0 shadow-[0_0_12px_#F5C842] transition-[width] duration-75 ease-out pointer-events-none" id="scroll-progress-bar"></div>
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-[#08080a]/90 backdrop-blur-xl border-b border-[#332e1f]">
+  <div class="h-20 w-full px-gutter md:px-margin-lg flex items-center justify-between gap-space-md">
+    <div class="flex items-center gap-space-md shrink-0">
+      <a aria-label="KAYTHEBOSS home" class="flex items-center gap-space-sm group" href="/">
+        <img alt="KAYTHEBOSS monogram" class="h-8 w-auto object-contain transition-transform duration-300 group-hover:scale-105" src="/assets/img/logo.png">
+        <span class="flex flex-col">
+          <span class="font-headline-sm text-headline-sm uppercase tracking-wider text-white group-hover:text-[#F5C842] transition-colors">KAYTHEBOSS</span>
+          <span class="font-label-sm text-label-sm uppercase tracking-widest text-[#A1A1AA]">GRAPHIC DESIGN STUDIO</span>
+        </span>
+      </a>
+    </div>
+
+    <nav aria-label="Main Navigation" class="hidden lg:flex items-center gap-space-lg">{{{ nav }}}</nav>
+
+    <div class="flex items-center gap-space-sm shrink-0">
+      <a href="/commission.html" class="gold-cta btn-magnetic hidden sm:inline-flex items-center font-label-sm text-label-sm uppercase tracking-widest bg-[#F5C842] text-black px-space-md py-2 font-bold">Start a Commission</a>
+      <button type="button" id="menu-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu" class="lg:hidden p-2 border border-[#332e1f] text-[#e5e1e4] hover:border-[#F5C842] hover:text-[#F5C842] transition-colors">
+        <span class="material-symbols-outlined text-xl">menu</span>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-nav" hidden class="lg:hidden border-t border-[#332e1f] bg-[#08080a] px-gutter py-space-md">
+    <nav aria-label="Mobile Navigation" class="flex flex-col gap-space-sm">{{{ nav }}}</nav>
+    <a href="/commission.html" class="mt-space-md inline-flex items-center justify-center font-label-md text-label-md uppercase tracking-widest bg-[#F5C842] text-black px-space-md py-3 font-bold">Start a Commission</a>
+  </div>
+</header>
+
+<div class="pt-20"></div>

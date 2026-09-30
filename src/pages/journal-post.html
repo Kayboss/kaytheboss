@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+{{> partials/head}}
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="{{ p.date }}">
+</head>
+<body class="bg-[#08080a] text-[#e5e1e4] font-sans antialiased">
+{{> partials/header}}
+
+<main class="w-full bg-[#08080a]" id="main-content">
+
+  <article>
+    <header class="w-full px-gutter md:px-margin-lg pt-space-lg pb-space-xl bg-[#08080a] border-b border-[#332e1f]">
+      <div class="max-w-3xl mx-auto">
+        <nav aria-label="Breadcrumb" class="font-label-sm text-label-sm text-[#A1A1AA] uppercase tracking-widest mb-space-md reveal-item">
+          <a href="/journal/" class="hover:text-[#F5C842] transition-colors">Journal</a>
+          <span aria-hidden="true" class="mx-2">//</span>
+          <span class="text-[#F5C842]">{{ p.category }}</span>
+        </nav>
+
+        <h1 class="font-display text-display-lg uppercase text-white font-extrabold tracking-tight reveal-item">
+          <span class="reveal-line"><span>{{ p.title }}</span></span>
+        </h1>
+
+        <div class="mt-space-md flex flex-wrap items-center gap-gutter font-label-sm text-label-sm text-[#A1A1AA] uppercase tracking-widest reveal-item">
+          <span>{{ dateLabel }}</span>
+          <span aria-hidden="true" class="w-1.5 h-1.5 bg-[#F5C842] telemetry-pulse"></span>
+          <span>{{ p.readingTime }} read</span>
+          <span aria-hidden="true" class="w-1.5 h-1.5 bg-[#F5C842] telemetry-pulse"></span>
+          <span class="text-[#F5C842]">{{ p.category }}</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="w-full px-gutter md:px-margin-lg py-space-xl bg-[#0e0f12] border-b border-[#332e1f]">
+      <div class="max-w-3xl mx-auto">
+        <div class="reveal-mask h-px bg-[#F5C842]/40 w-full mb-space-lg"></div>
+        <p class="font-display text-headline-md uppercase text-[#fff2cc] leading-snug reveal-item mb-space-xl">{{ p.excerpt }}</p>
+        <div class="prose-studio reveal-item">{{{ body }}}</div>
+      </div>
+    </div>
+  </article>
+
+  <section aria-label="Continue reading" class="w-full px-gutter md:px-margin-lg py-space-xl bg-[#050506]">
+    <div class="max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-gutter">
+      <a href="/journal/" class="interactive-card reveal-item bg-[#121316] border border-[#332e1f] p-space-lg group">
+        <span class="font-label-sm text-label-sm text-[#A1A1AA] uppercase tracking-widest">← Back</span>
+        <h2 class="font-display text-headline-sm uppercase text-white font-bold group-hover:text-[#ffe08f] transition-colors mt-space-sm">ALL ARTICLES</h2>
+      </a>
+      <a href="{{ olderHref }}" class="interactive-card reveal-item bg-[#121316] border border-[#332e1f] p-space-lg group text-right">
+        <span class="font-label-sm text-label-sm text-[#A1A1AA] uppercase tracking-widest">Read next →</span>
+        <h2 class="font-display text-headline-sm uppercase text-white font-bold group-hover:text-[#ffe08f] transition-colors mt-space-sm">{{ olderTitle }}</h2>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+{{> partials/footer}}
+</body>
+</html>

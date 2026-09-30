@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+{{> partials/head}}
+</head>
+<body class="bg-[#08080a] text-[#e5e1e4] font-sans antialiased">
+{{> partials/header}}
+
+{{{ telemetry }}}
+
+<main class="w-full bg-[#08080a]" id="main-content">
+
+  <section aria-label="Start a project" class="w-full px-gutter md:px-margin-lg py-space-xl bg-[#08080a] border-b border-[#332e1f]">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-lg">
+      <div class="lg:col-span-5">
+        <div class="reveal-item">
+          <h1 class="font-display text-display-lg uppercase text-white font-extrabold tracking-tight">
+            <span class="reveal-line"><span>LET'S TALK</span></span>
+            <span class="reveal-line"><span class="text-[#F5C842]">ABOUT YOUR PROJECT.</span></span>
+          </h1>
+          <p class="font-body-lg text-body-lg text-[#d2c6a2] mt-space-md leading-relaxed">Tell us what you are trying to do, what is getting in the way, and when you need it finished.</p>
+          <p class="font-body-md text-body-md text-[#A1A1AA] mt-space-md leading-relaxed">We reply to every message within two working days. If we are not the right studio for the job, we will tell you and point you to someone who is.</p>
+        </div>
+
+        <div class="mt-space-lg grid grid-cols-1 sm:grid-cols-2 gap-gutter reveal-item" style="transition-delay:120ms">
+          <div class="border border-[#332e1f] bg-[#121316] p-space-md">
+            <div class="font-label-sm text-label-sm text-[#A1A1AA] uppercase tracking-widest">EMAIL US</div>
+            <a href="mailto:{{ email }}" class="font-label-md text-label-md text-[#F5C842] break-all mt-space-xs inline-block link-underline">{{ email }}</a>
+          </div>
+          <div class="border border-[#332e1f] bg-[#121316] p-space-md">
+            <div class="font-label-sm text-label-sm text-[#A1A1AA] uppercase tracking-widest">WHERE WE ARE</div>
+            <div class="font-label-md text-label-md text-[#F5C842] mt-space-xs">BERLIN &amp; NEW YORK</div>
+          </div>
+        </div>
+
+        <div class="mt-space-lg border border-[#332e1f] bg-[#050506] p-space-lg reveal-item" style="transition-delay:180ms">
+          <div class="font-label-sm text-label-sm text-[#F5C842] uppercase tracking-widest mb-space-sm">HELPFUL TO INCLUDE</div>
+          <ul class="space-y-space-xs font-body-sm text-[#d2c6a2]">
+            <li class="flex items-start gap-space-xs"><span aria-hidden="true" class="w-1 h-1 bg-[#F5C842] telemetry-pulse mt-1.5 shrink-0"></span>What the problem is, in your own words.</li>
+            <li class="flex items-start gap-space-xs"><span aria-hidden="true" class="w-1 h-1 bg-[#F5C842] telemetry-pulse mt-1.5 shrink-0"></span>Who needs to be convinced, and by when.</li>
+            <li class="flex items-start gap-space-xs"><span aria-hidden="true" class="w-1 h-1 bg-[#F5C842] telemetry-pulse mt-1.5 shrink-0"></span>Anything we have to work around, like a budget limit or a fixed launch date.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="lg:col-span-7">
+        <form id="commission-form" class="border border-[#332e1f] bg-[#121316] p-space-lg reveal-item" style="transition-delay:100ms" novalidate>
+          <div class="flex items-center justify-between pb-space-md mb-space-md bg-[#050506] px-space-md py-space-sm border border-[#332e1f]">
+            <div class="flex items-center gap-space-sm font-label-md text-label-md text-[#F5C842] uppercase font-bold">PROJECT ENQUIRY</div>
+          </div>
+
+          <div class="space-y-space-md">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-gutter">
+              <div class="form-group">
+                <label for="name" class="block font-label-sm text-label-sm uppercase tracking-widest text-[#d1c5ae] mb-space-xs">Name *</label>
+                <input id="name" name="name" type="text" required autocomplete="name" class="input-field-futuristic w-full bg-[#050506] border border-[#332e1f] px-space-sm py-2 text-[#e5e1e4] text-sm font-sans focus:outline-none" placeholder="Your name">
+              </div>
+              <div class="form-group">
+                <label for="email" class="block font-label-sm text-label-sm uppercase tracking-widest text-[#d1c5ae] mb-space-xs">Email *</label>
+                <input id="email" name="email" type="email" required autocomplete="email" class="input-field-futuristic w-full bg-[#050506] border border-[#332e1f] px-space-sm py-2 text-[#e5e1e4] text-sm font-sans focus:outline-none" placeholder="you@company.com">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-gutter">
+              <div class="form-group">
+                <label for="company" class="block font-label-sm text-label-sm uppercase tracking-widest text-[#d1c5ae] mb-space-xs">Company</label>
+                <input id="company" name="company" type="text" autocomplete="organization" class="input-field-futuristic w-full bg-[#050506] border border-[#332e1f] px-space-sm py-2 text-[#e5e1e4] text-sm font-sans focus:outline-none" placeholder="Optional">
+              </div>
+              <div class="form-group">
+                <label for="discipline" class="block font-label-sm text-label-sm uppercase tracking-widest text-[#d1c5ae] mb-space-xs">What do you need? *</label>
+                <select id="discipline" name="discipline" required class="input-field-futuristic w-full bg-[#050506] border border-[#332e1f] px-space-sm py-2 text-[#e5e1e4] text-sm font-sans focus:outline-none">
+                  <option value="">Choose one</option>
+                  <option value="packaging">Packaging or label design</option>
+                  <option value="identity">Logo or branding</option>
+                  <option value="web">Website or app design</option>
+                  <option value="print">Poster or print design</option>
+                  <option value="other">Something else</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-gutter">
+              <div class="form-group">
+                <label for="budget" class="block font-label-sm text-label-sm uppercase tracking-widest text-[#d1c5ae] mb-space-xs">Budget *</label>
+                <select id="budget" name="budget" required class="input-field-futuristic w-full bg-[#050506] border border-[#332e1f] px-space-sm py-2 text-[#e5e1e4] text-sm font-sans focus:outline-none">
+                  <option value="">Choose one</option>
+                  <option value="under-10k">Under $10,000</option>
+                  <option value="10k-25k">$10,000 – $25,000</option>
+                  <option value="25k-60k">$25,000 – $60,000</option>
+                  <option value="60k-plus">More than $60,000</option>
+                  <option value="unsure">Not sure yet</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="timeline" class="block font-label-sm text-label-sm uppercase tracking-widest text-[#d1c5ae] mb-space-xs">When do you need it?</label>
+                <input id="timeline" name="timeline" type="text" class="input-field-futuristic w-full bg-[#050506] border border-[#332e1f] px-space-sm py-2 text-[#e5e1e4] text-sm font-sans focus:outline-none" placeholder="e.g. ready for a spring launch">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="brief" class="block font-label-sm text-label-sm uppercase tracking-widest text-[#d1c5ae] mb-space-xs">Tell us about the project *</label>
+              <textarea id="brief" name="brief" rows="6" required class="input-field-futuristic w-full bg-[#050506] border border-[#332e1f] px-space-sm py-2 text-[#e5e1e4] text-sm font-sans focus:outline-none resize-y" placeholder="What are you trying to do, what is getting in the way, and who needs to be convinced?"></textarea>
+              <div class="flex items-center justify-between mt-space-xs font-label-sm text-label-sm text-[#6b6552]">
+                <span>The more detail you give, the more useful our reply will be.</span>
+                <span id="brief-count">0 / 1200</span>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-space-sm pt-space-xs">
+              <input id="nda" name="nda" type="checkbox" class="mt-1 w-4 h-4 rounded-[2px] bg-[#050506] border border-[#4a422d] text-[#F5C842] focus:ring-0 focus:ring-offset-0">
+              <label for="nda" class="font-label-sm text-label-sm text-[#A1A1AA] leading-relaxed">This project is confidential. Please send a mutual NDA before we discuss the details.</label>
+            </div>
+
+            <div class="pt-space-md border-t border-[#332e1f] flex flex-col sm:flex-row items-stretch sm:items-center gap-space-md">
+              <button type="submit" class="gold-cta btn-magnetic font-label-lg text-label-lg uppercase tracking-wider bg-[#F5C842] text-black px-space-lg py-space-md font-bold">SEND MESSAGE</button>
+              <p id="form-status" class="font-label-sm text-label-sm text-[#A1A1AA] uppercase tracking-widest" role="status" aria-live="polite">Ready to send</p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+{{> partials/footer}}
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+{{> partials/head}}
+<meta property="og:image" content="{{ site.url }}{{ image }}">
+</head>
+<body class="bg-[#08080a] text-[#e5e1e4] font-sans antialiased">
+{{> partials/header}}
+
+<main class="w-full bg-[#08080a]" id="main-content">
+
+  <!-- Hero -->
+  <section aria-label="{{ w.title }}" class="w-full px-gutter md:px-margin-lg pt-space-lg pb-space-xl bg-[#08080a] border-b border-[#332e1f]">
+    <nav aria-label="Breadcrumb" class="font-label-sm text-label-sm text-[#A1A1AA] uppercase tracking-widest mb-space-md reveal-item">
+      <a href="/work/" class="hover:text-[#F5C842] transition-colors">Work</a>
+      <span aria-hidden="true" class="mx-2">//</span>
+      <span class="text-[#F5C842]">{{ w.client }}</span>
+    </nav>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-lg">
+      <div class="lg:col-span-8">
+        <h1 class="font-display text-display-lg uppercase text-white font-extrabold tracking-tight reveal-item">
+          <span class="reveal-line"><span>{{ w.title }}</span></span>
+        </h1>
+        <p class="font-body-lg text-body-lg text-[#d2c6a2] mt-space-md max-w-2xl reveal-item">{{ w.summary }}</p>
+
+        <div class="mt-space-md flex flex-wrap gap-space-xs font-label-sm text-label-sm reveal-item">
+          <span class="border border-[#332e1f] px-space-xs py-1 uppercase text-[#F5C842]">{{ w.discipline }}</span>
+          <span class="border border-[#332e1f] px-space-xs py-1 uppercase">{{ w.year }}</span>
+          <span class="border border-[#332e1f] px-space-xs py-1 uppercase">{{ w.client }}</span>
+        </div>
+      </div>
+
+      <aside class="lg:col-span-4 reveal-item" style="transition-delay:120ms">
+        <div class="border border-[#332e1f] bg-[#050506] p-space-md">
+          <h2 class="font-label-sm text-label-sm uppercase tracking-widest text-[#F5C842] mb-space-sm">What we did</h2>
+          <div class="flex flex-wrap gap-space-xs mb-space-md">{{{ roles }}}</div>
+          <h2 class="font-label-sm text-label-sm uppercase tracking-widest text-[#F5C842] mb-space-sm">Tools and materials</h2>
+          <div class="flex flex-wrap gap-space-xs">{{{ stack }}}</div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Hero image with 3D tilt -->
+  <section aria-label="Project image" class="w-full px-gutter md:px-margin-lg py-space-xl bg-[#0e0f12] border-b border-[#332e1f]">
+    <figure class="tilt-3d reveal-item max-w-5xl mx-auto" data-tilt-3d>
+      <div class="tilt-3d__inner relative border border-[#332e1f] overflow-hidden bg-[#121316]">
+        <img alt="{{ w.alt }}" class="w-full object-cover" src="{{ image }}" decoding="async">
+        <span class="tilt-3d__sheen"></span>
+      </div>
+      <figcaption class="mt-space-xs flex flex-col sm:flex-row items-start sm:justify-between gap-space-xs font-label-sm text-label-sm text-[#A1A1AA] uppercase tracking-widest">
+        <span>{{ w.client }} // {{ w.year }} // {{ w.series }}</span>
+        <span class="text-[#F5C842]">Move your cursor to tilt</span>
+      </figcaption>
+    </figure>
+  </section>
+
+  <!-- Narrative -->
+  <section aria-label="About this project" class="w-full px-gutter md:px-margin-lg py-space-xl bg-[#08080a] border-b border-[#332e1f]">
+    <div class="max-w-3xl mx-auto">
+      <div class="reveal-mask h-px bg-[#F5C842]/40 w-full mb-space-lg"></div>
+      <div class="reveal-item">
+        <p class="font-body-lg text-body-lg text-[#fff2cc] leading-relaxed">{{ w.tldr }}</p>
+      </div>
+
+      <div class="reveal-item mt-space-xl">
+        <div class="font-label-sm text-label-sm text-[#F5C842] uppercase tracking-widest mb-space-sm">The problem</div>
+        <p class="font-body-lg text-body-lg text-[#d2c6a2] leading-relaxed">{{ w.challenge }}</p>
+      </div>
+
+      <div class="reveal-item mt-space-xl">
+        <div class="font-label-sm text-label-sm text-[#F5C842] uppercase tracking-widest mb-space-sm">What we did</div>
+        <ul class="space-y-space-md">
+          {{{ approach }}}
+        </ul>
+      </div>
+
+      <blockquote class="reveal-item mt-space-xl border-l border-[#F5C842] pl-space-md py-space-xs">
+        <p class="font-display text-headline-sm uppercase text-white leading-snug">"{{ w.pullQuote }}"</p>
+        <footer class="font-label-sm text-label-sm text-[#A1A1AA] uppercase tracking-widest mt-space-sm">— {{ w.quoteBy }}</footer>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- Outcomes -->
+  <section aria-label="Project results" class="w-full px-gutter md:px-margin-lg py-space-xl bg-[#08080a] border-b border-[#332e1f]">
+    <div class="max-w-4xl mx-auto">
+      <div class="reveal-item mb-space-md">
+        <h2 class="font-display text-headline-lg uppercase text-white font-bold">WHAT CHANGED</h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-gutter">
+        {{{ outcomes }}}
+      </div>
+    </div>
+  </section>
+
+  <!-- Prev / next -->
+  <section aria-label="More work" class="w-full px-gutter md:px-margin-lg py-space-xl bg-[#050506]">
+    <div class="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-gutter">
+      <a href="{{ prevHref }}" class="interactive-card reveal-item bg-[#121316] border border-[#332e1f] p-space-lg group">
+        <span class="font-label-sm text-label-sm text-[#A1A1AA] uppercase tracking-widest">← Previous</span>
+        <h2 class="font-display text-headline-sm uppercase text-white font-bold group-hover:text-[#ffe08f] transition-colors mt-space-sm">{{ prevTitle }}</h2>
+      </a>
+      {{#if nextHref}}
+      <a href="{{ nextHref }}" class="interactive-card reveal-item bg-[#121316] border border-[#332e1f] p-space-lg group text-right">
+        <span class="font-label-sm text-label-sm text-[#A1A1AA] uppercase tracking-widest">Next ({{ nextIndex }}) →</span>
+        <h2 class="font-display text-headline-sm uppercase text-white font-bold group-hover:text-[#ffe08f] transition-colors mt-space-sm">{{ nextTitle }}</h2>
+      </a>
+      {{/if}}
+    </div>
+  </section>
+
+</main>
+
+{{> partials/footer}}
+</body>
+</html>

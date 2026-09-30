@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+{{> partials/head}}
+</head>
+<body class="bg-[#08080a] text-[#e5e1e4] font-sans antialiased">
+{{> partials/header}}
+
+{{{ telemetry }}}
+
+<main class="w-full bg-[#08080a]" id="main-content">
+
+  <!-- ============ HERO ============ -->
+  <section aria-label="Introduction and Studio Capabilities" class="hero-fullscreen relative w-full bg-[#08080a] px-gutter md:px-margin-lg overflow-hidden border-b border-[#332e1f] flex items-center" id="hero-section">
+
+    <!-- interactive 3D background, with the image underneath as a fallback -->
+    <div aria-hidden="true" class="hero-3d-layer absolute inset-0 pointer-events-none">
+      <canvas class="hero-3d-canvas block w-full h-full" id="hero-3d"></canvas>
+      <img alt="" id="hero-poster" class="hero-3d-poster absolute inset-0 w-full h-full object-cover object-center opacity-45" src="/assets/img/studio-sculpture.png" fetchpriority="high" decoding="async">
+    </div>
+    <!-- readability scrim: dark at the left where the text sits, fading right -->
+    <div aria-hidden="true" class="absolute inset-0 pointer-events-none" style="background:linear-gradient(100deg, rgba(8,8,10,0.97) 0%, rgba(8,8,10,0.9) 38%, rgba(8,8,10,0.55) 65%, rgba(8,8,10,0.3) 100%)"></div>
+    <div aria-hidden="true" class="absolute inset-0 pointer-events-none" style="background:linear-gradient(to top, rgba(8,8,10,1) 0%, rgba(8,8,10,0) 35%)"></div>
+    <div aria-hidden="true" class="absolute inset-0 pointer-events-none opacity-20 bg-[radial-gradient(#F5C842_1px,transparent_1px)] [background-size:32px_32px]"></div>
+
+    <div class="relative z-10 w-full grid grid-cols-1 lg:grid-cols-12 gap-gutter-lg items-center">
+      <div class="lg:col-span-7 flex flex-col justify-center space-y-space-md reveal-item">
+        <div class="hero-badge inline-flex items-center gap-space-xs bg-[#121316] border border-[#332e1f] px-space-sm py-1 self-start">
+          <span aria-hidden="true" class="w-2 h-2 bg-[#F5C842]"></span>
+          <span class="font-label-sm text-label-sm uppercase tracking-widest text-[#e5e1e4]">Graphic design studio <span aria-hidden="true" class="mx-1">//</span> Berlin &amp; New York</span>
+        </div>
+
+        <h1 class="hero-title font-display text-display-lg uppercase text-white tracking-tight font-extrabold leading-none">
+          <span class="reveal-line"><span>DESIGNS THAT</span></span>
+          <span class="reveal-line"><span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-[#d2c6a2] to-[#9a907b]">GET NOTICED.</span></span>
+          <span class="reveal-line"><span class="text-[#F5C842] drop-shadow-[0_0_25px_rgba(245,200,66,0.3)]">AND GET CHOOSEN.</span></span>
+        </h1>
+
+        <p class="hero-lede font-body-lg text-body-lg text-[#d2c6a2] max-w-2xl leading-relaxed text-lg">We are a graphic design studio. We make packaging, logos, websites and posters that people actually notice — and that make your business easier to choose.</p>
+
+        <div class="pt-space-md flex flex-wrap items-center gap-space-md">
+          <a href="/commission.html" class="hero-cta gold-cta btn-magnetic font-label-lg text-label-lg uppercase tracking-wider bg-[#F5C842] text-black px-space-lg py-space-md font-bold flex items-center gap-space-xs group">START A PROJECT <span aria-hidden="true" class="material-symbols-outlined text-base group-hover:translate-x-1.5 transition-transform duration-300">arrow_forward</span></a>
+          <a href="/work/" class="hero-cta btn-ghost-magnetic font-label-lg text-label-lg uppercase tracking-wider bg-[#121316] border border-[#332e1f] text-white px-space-md py-space-md flex items-center gap-space-xs group"><span aria-hidden="true" class="material-symbols-outlined text-base group-hover:rotate-12 transition-transform duration-300">grid_view</span>SEE OUR WORK</a>
+        </div>
+
+        <p class="hero-reply font-body-sm text-body-sm text-[#A1A1AA]">Free to talk. We reply within two working days.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HOW WE WORK ============ -->
+  <section aria-label="How working with us goes" class="how-we-work w-full bg-[#0e0f12] py-space-lg px-gutter md:px-margin-lg border-t border-b border-[#332e1f]">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter-lg">
+      <div class="reveal-item step">
+        <h3 class="step-num font-label-sm text-label-sm uppercase tracking-widest">STEP 1</h3>
+        <p class="step-title font-body-md text-body-md mt-space-sm">You tell us what you need</p>
+        <p class="step-body font-body-md text-body-md mt-space-sm">A quick brief, or just a rough idea. That is enough to start.</p>
+      </div>
+      <div class="reveal-item step" style="transition-delay:80ms">
+        <h3 class="step-num font-label-sm text-label-sm uppercase tracking-widest">STEP 2</h3>
+        <p class="step-title font-body-md text-body-md mt-space-sm">We reply within two working days</p>
+        <p class="step-body font-body-md text-body-md mt-space-sm">With honest thoughts, a rough price, and a clear timeline.</p>
+      </div>
+      <div class="reveal-item step" style="transition-delay:160ms">
+        <h3 class="step-num font-label-sm text-label-sm uppercase tracking-widest">STEP 3</h3>
+        <p class="step-title font-body-md text-body-md mt-space-sm">You see options, not just one idea</p>
+        <p class="step-body font-body-md text-body-md mt-space-sm">So you can pick the direction that fits your business.</p>
+      </div>
+      <div class="reveal-item step" style="transition-delay:240ms">
+        <h3 class="step-num font-label-sm text-label-sm uppercase tracking-widest">STEP 4</h3>
+        <p class="step-title font-body-md text-body-md mt-space-sm">You get the final files</p>
+        <p class="step-body font-body-md text-body-md mt-space-sm">Print-ready, web-ready, and organised so you can use them.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DISCIPLINES ============ -->
+  <section id="disciplines" aria-label="What we do" class="w-full bg-[#08080a] px-gutter md:px-margin-lg py-space-xl border-b border-[#332e1f]">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-space-lg reveal-item">
+      <div>
+        <h2 class="font-display text-headline-lg uppercase text-white font-bold">WHAT WE DO</h2>
+      </div>
+      <p class="font-body-lg text-body-lg text-[#d2c6a2] max-w-md md:mt-0 mt-space-sm leading-relaxed">Four kinds of work, one team. Most projects end up touching more than one of them.</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">{{{ disciplines }}}</div>
+  </section>
+
+  <!-- ============ ETHOS MARQUEE ============ -->
+  <section aria-label="Agency Ethos Banner" class="w-full bg-[#F5C842] py-space-md overflow-hidden select-none border-t border-b border-black">
+    {{{ marquee }}}
+  </section>
+
+  <!-- ============ PILLAR 2: IDENTITY PLAYGROUND ============ -->
+  <section aria-label="Logo example" class="w-full px-gutter md:px-margin-lg py-space-xl bg-[#08080a] border-b border-[#332e1f]">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-space-lg reveal-item">
+      <div>
+        <h2 class="font-display text-headline-lg uppercase text-white font-bold">A LOGO THAT WORKS AT EVERY SIZE</h2>
+      </div>
+      <p class="font-body-lg text-body-lg text-[#d2c6a2] max-w-md md:mt-0 mt-space-sm leading-relaxed">Move your cursor over this example. A good logo has to look right on a business card and on a phone screen — most do not.</p>
+    </div>
+
+    <div class="identity-stage reveal-item border border-[#332e1f] bg-[#050506] relative min-h-[420px] overflow-hidden" data-identity-stage>
+      <div aria-hidden="true" class="absolute inset-0 opacity-20 bg-[radial-gradient(#F5C842_1px,transparent_1px)] [background-size:32px_32px]"></div>
+      <div class="relative grid grid-cols-1 md:grid-cols-3 gap-gutter p-space-lg items-center min-h-[420px]">
+        <div class="flex items-center justify-center md:col-span-1">
+          <div class="identity-mark" data-mark>
+            <div class="w-40 h-40 border border-[#332e1f] bg-[#121316] flex items-center justify-center relative">
+              <span class="font-display text-display-lg text-[#F5C842] leading-none" data-mark-glyph>K</span>
+            </div>
+          </div>
+        </div>
+        <div class="md:col-span-2 flex flex-col gap-space-md">
+          <div>
+            <h3 class="font-display text-headline-md uppercase text-white font-bold">VANGUARD <span class="text-[#F5C842] identity-sub" data-sub="translateX(0)">AI</span></h3>
+            <p class="font-body-md text-body-md text-[#d2c6a2] mt-space-sm max-w-lg">Our logo for Vanguard AI. The mark is simple on purpose, so it stays sharp whether it is embroidered on a hoodie or shown 24 pixels wide in an app.</p>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-space-xs font-label-sm text-label-sm">
+            <div class="border border-[#332e1f] bg-[#121316] p-space-sm"><span class="text-[#A1A1AA] block">Main colour</span><span class="text-[#F5C842]">Gold</span></div>
+            <div class="border border-[#332e1f] bg-[#121316] p-space-sm"><span class="text-[#A1A1AA] block">Background</span><span class="text-[#F5C842]">Near black</span></div>
+            <div class="border border-[#332e1f] bg-[#121316] p-space-sm"><span class="text-[#A1A1AA] block">Style</span><span class="text-[#F5C842]">Simple, bold</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PILLAR 3: PACKAGING TILT ============ -->
+  <section aria-label="Packaging examples" class="w-full px-gutter md:px-margin-lg py-space-xl bg-[#0e0f12] border-b border-[#332e1f]">
+    <div class="max-w-3xl mb-space-lg reveal-item">
+      <h2 class="font-display text-headline-lg uppercase text-white font-bold">PACKAGING YOU CAN FEEL</h2>
+      <p class="font-body-lg text-body-lg text-[#d2c6a2] mt-space-sm leading-relaxed">Move your cursor over these. Good packaging has to catch the eye from across a shop, and then feel worth the price in the hand.</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-gutter">
+      <div class="tilt-3d reveal-item" data-tilt-3d>
+        <div class="tilt-3d__inner relative border border-[#332e1f] bg-[#121316] overflow-hidden">
+          <img alt="Nocturne botanical spirit packaging with blind debossed obsidian cardstock" class="w-full h-72 object-cover" src="/assets/img/work-nocturne-00.png" loading="lazy" decoding="async">
+          <span class="tilt-3d__sheen"></span>
+          <span class="absolute top-space-sm left-space-sm font-label-sm text-label-sm text-[#F5C842] uppercase tracking-widest">NOCTURNE_00</span>
+        </div>
+        <div class="border-x border-b border-[#332e1f] bg-[#050506] p-space-sm font-label-sm text-label-sm text-[#A1A1AA] flex justify-between"><span>Embossed lettering, no shine</span><span class="text-[#F5C842]">Gin</span></div>
+      </div>
+
+      <div class="tilt-3d reveal-item" data-tilt-3d style="transition-delay:100ms">
+        <div class="tilt-3d__inner relative border border-[#332e1f] bg-[#121316] overflow-hidden">
+          <img alt="Aurum Elixir holographic foil beverage sleeve" class="w-full h-72 object-cover" src="/assets/img/work-aurum-elixir.png" loading="lazy" decoding="async">
+          <span class="tilt-3d__sheen"></span>
+          <span class="absolute top-space-sm left-space-sm font-label-sm text-label-sm text-[#F5C842] uppercase tracking-widest">AURUM ELIXIR</span>
+        </div>
+        <div class="border-x border-b border-[#332e1f] bg-[#050506] p-space-sm font-label-sm text-label-sm text-[#A1A1AA] flex justify-between"><span>Shiny foil sleeve</span><span class="text-[#F5C842]">Canned drinks</span></div>
+      </div>
+
+      <div class="tilt-3d reveal-item sm:col-span-2 lg:col-span-1" data-tilt-3d style="transition-delay:200ms">
+        <div class="tilt-3d__inner relative border border-[#332e1f] bg-[#121316] overflow-hidden">
+          <img alt="Chronos Node titanium hardware unboxing with machined aluminium casing" class="w-full h-72 object-cover" src="/assets/img/work-chronos-node.png" loading="lazy" decoding="async">
+          <span class="tilt-3d__sheen"></span>
+          <span class="absolute top-space-sm left-space-sm font-label-sm text-label-sm text-[#F5C842] uppercase tracking-widest">CHRONOS NODE</span>
+        </div>
+        <div class="border-x border-b border-[#332e1f] bg-[#050506] p-space-sm font-label-sm text-label-sm text-[#A1A1AA] flex justify-between"><span>Snug, no rattling</span><span class="text-[#F5C842]">Electronics</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SELECTED WORK ============ -->
+  <section aria-label="Selected projects" class="w-full px-gutter md:px-margin-lg py-space-xl bg-[#0e0f12] border-t border-b border-[#332e1f]">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-space-lg reveal-item">
+      <div>
+        <h2 class="font-display text-headline-lg uppercase text-white font-bold">WORK WE'RE PROUD OF</h2>
+      </div>
+      <a href="/work/" class="font-label-md text-label-md uppercase text-[#F5C842] hover:text-[#ffe08f] transition-colors flex items-center gap-space-xs md:mt-0 mt-space-sm group"><span class="border-b border-[#F5C842]/40 group-hover:border-[#ffe08f]">SEE ALL {{ totalWork }} PROJECTS</span><span aria-hidden="true" class="material-symbols-outlined text-base group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform">north_east</span></a>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">{{{ cases }}}</div>
+  </section>
+
+  <!-- ============ JOURNAL TEASER ============ -->
+  <section aria-label="From the journal" class="w-full px-gutter md:px-margin-lg py-space-xl bg-[#08080a] border-b border-[#332e1f]">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-space-lg reveal-item">
+      <div>
+        <h2 class="font-display text-headline-lg uppercase text-white font-bold">TIPS FROM THE STUDIO</h2>
+      </div>
+      <a href="/journal/" class="font-label-md text-label-md uppercase text-[#F5C842] hover:text-[#ffe08f] transition-colors flex items-center gap-space-xs md:mt-0 mt-space-sm group"><span class="border-b border-[#F5C842]/40 group-hover:border-[#ffe08f]">READ ALL NOTES</span><span aria-hidden="true" class="material-symbols-outlined text-base group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform">north_east</span></a>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+      <a href="/journal/latency-is-a-design-problem.html" class="interactive-card reveal-item bg-[#121316] border border-[#332e1f] p-space-lg group flex flex-col">
+        <span class="font-label-sm text-label-sm text-[#F5C842] uppercase tracking-widest">PROCESS</span>
+        <h3 class="font-display text-headline-sm uppercase text-white font-bold group-hover:text-[#ffe08f] transition-colors mt-space-sm">WHY A SLOW WEBSITE IS A DESIGN PROBLEM</h3>
+        <p class="font-body-sm text-[#d2c6a2] mt-space-sm flex-1">How quickly your site responds is a decision about how much you value the visitor's time.</p>
+        <span class="font-label-sm text-label-sm text-white group-hover:text-[#F5C842] uppercase mt-space-md">READ →</span>
+      </a>
+      <a href="/journal/one-skeleton-every-scale.html" class="interactive-card reveal-item bg-[#121316] border border-[#332e1f] p-space-lg group flex flex-col" style="transition-delay:80ms">
+        <span class="font-label-sm text-label-sm text-[#F5C842] uppercase tracking-widest">LOGOS</span>
+        <h3 class="font-display text-headline-sm uppercase text-white font-bold group-hover:text-[#ffe08f] transition-colors mt-space-sm">WHY ONE LOGO CAN'T WORK AT EVERY SIZE</h3>
+        <p class="font-body-sm text-[#d2c6a2] mt-space-sm flex-1">A logo that looks wonderful on a poster can turn to mush on a phone screen. Here is what we do about it.</p>
+        <span class="font-label-sm text-label-sm text-white group-hover:text-[#F5C842] uppercase mt-space-md">READ →</span>
+      </a>
+      <a href="/journal/the-ten-second-unboxing.html" class="interactive-card reveal-item bg-[#121316] border border-[#332e1f] p-space-lg group flex flex-col" style="transition-delay:160ms">
+        <span class="font-label-sm text-label-sm text-[#F5C842] uppercase tracking-widest">PACKAGING</span>
+        <h3 class="font-display text-headline-sm uppercase text-white font-bold group-hover:text-[#ffe08f] transition-colors mt-space-sm">THE TEN-SECOND UNBOXING</h3>
+        <p class="font-body-sm text-[#d2c6a2] mt-space-sm flex-1">An expensive product is usually opened once, on your own, with nobody watching. That is the moment the box has to work hardest.</p>
+        <span class="font-label-sm text-label-sm text-white group-hover:text-[#F5C842] uppercase mt-space-md">READ →</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ COMMISSION CTA ============ -->
+  <section aria-label="Start a project" class="w-full bg-[#050506] px-gutter md:px-margin-lg py-space-xl border-t border-[#332e1f]">
+    <div class="max-w-3xl mx-auto text-center reveal-item">
+      <h2 class="font-display text-headline-lg uppercase text-white font-bold">GOT A PROJECT IN MIND?</h2>
+      <p class="font-body-lg text-body-lg text-[#d2c6a2] mt-space-md">Tell us what you need. We will tell you honestly whether we are the right studio for it.</p>
+      <div class="mt-space-lg flex flex-wrap items-center justify-center gap-space-md">
+        <a href="/commission.html" class="gold-cta btn-magnetic font-label-lg text-label-lg uppercase tracking-wider bg-[#F5C842] text-black px-space-lg py-space-md font-bold">START A PROJECT</a>
+        <a href="mailto:{{ site.email }}" class="btn-ghost-magnetic font-label-md text-label-md uppercase tracking-wider bg-[#121316] border border-[#332e1f] text-white px-space-md py-space-md">{{ site.email }}</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+{{> partials/footer}}
+</body>
+</html>

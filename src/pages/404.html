@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+{{> partials/head}}
+</head>
+<body class="bg-[#08080a] text-[#e5e1e4] font-sans antialiased">
+{{> partials/header}}
+
+<main class="w-full bg-[#08080a] min-h-[70vh] flex items-center" id="main-content">
+  <section aria-label="Page not found" class="w-full px-gutter md:px-margin-lg py-space-xl text-center">
+    <div class="reveal-item">
+      <div class="font-label-sm text-label-sm text-[#F5C842] uppercase tracking-widest mb-space-sm">ERROR 404</div>
+      <h1 class="font-display text-display-lg uppercase text-white font-extrabold tracking-tight">PAGE NOT FOUND</h1>
+      <p class="font-body-lg text-body-lg text-[#d2c6a2] mt-space-md max-w-xl mx-auto">We could not find that page. The link may be out of date, or the address may have a typo in it.</p>
+      <div class="mt-space-lg flex flex-wrap items-center justify-center gap-space-md">
+        <a href="/" class="gold-cta btn-magnetic font-label-lg text-label-lg uppercase tracking-wider bg-[#F5C842] text-black px-space-lg py-space-md font-bold">BACK TO HOME</a>
+        <a href="/work/" class="btn-ghost-magnetic font-label-md text-label-md uppercase tracking-wider bg-[#121316] border border-[#332e1f] text-white px-space-md py-space-md">SEE OUR WORK</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+{{> partials/footer}}
+</body>
+</html>

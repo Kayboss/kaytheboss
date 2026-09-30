@@ -1,0 +1,182 @@
+[
+  {
+    "slug": "axiom-vault",
+    "index": "AXIOM VAULT",
+    "title": "Trading App for a Fast-Moving Investment Firm",
+    "year": "2025",
+    "discipline": "Website and App Design",
+    "series": "Finance",
+    "size": "wide",
+    "image": "work-axiom-vault.png",
+    "alt": "Dark trading app interface showing portfolio charts, market data and account figures",
+    "summary": "We redesigned the screen where Axiom's traders watch their money move, so the numbers update instantly and are easy to read at a glance.",
+    "client": "Axiom Vault Capital",
+    "role": ["App design", "Design system", "Screen layouts"],
+    "stack": ["Mobile and desktop app", "Charts", "Dark mode"],
+    "tldr": "Axiom's traders were losing deals because the app was too slow to show them what had just happened. We rebuilt it so the screen updates the moment a price changes.",
+    "challenge": "The old app showed everything in plain lists. When the market moved, traders had to hunt through rows of numbers to work out what had changed — and by the time they found it, the moment had passed.",
+    "approach": [
+      "The app now shows the update straight away and checks itself a moment later, so the screen never sits there looking frozen.",
+      "We drew the investments as a 3D map, where height shows how risky each one is. Traders can see their whole portfolio at a glance instead of scrolling through a list.",
+      "We built one shared set of rules for colours, buttons and charts, so every screen looks the same and new ones can be added much faster."
+    ],
+    "outcome": [
+      { "value": "Instant", "label": "Screen updates as soon as a price changes" },
+      { "value": "4 → 1", "label": "Separate apps merged into one" },
+      { "value": "Faster", "label": "Time spent building new screens" }
+    ],
+    "pullQuote": "It stopped feeling like a form we filled in and started feeling like a tool we actually trust.",
+    "quoteBy": "Head of Trading, Axiom Vault",
+    "next": "chronos-node"
+  },
+  {
+    "slug": "nocturne-00",
+    "index": "NOCTURNE 00",
+    "title": "Bottle and Box Design for a Small Distillery",
+    "year": "2024",
+    "discipline": "Packaging Design",
+    "series": "Spirits",
+    "size": "tall",
+    "image": "work-nocturne-00.png",
+    "alt": "Luxury gin bottle in a black presentation box with pressed lettering",
+    "summary": "A black box and bottle for a distillery that only makes 400 bottles at a time — so the packaging had to sell itself with no advertising at all.",
+    "client": "Nocturne Distillery",
+    "role": ["Box and bottle design", "Choosing materials", "Overseeing printing"],
+    "stack": ["Letterpress", "Blind embossing", "Shiny foil"],
+    "tldr": "Nocturne makes 400 bottles per run, and nobody sees them in a shop. The box is the only salesperson they have, so it had to feel expensive without anyone explaining it.",
+    "challenge": "There is no shelf, no shop window and no advert. Buyers meet the bottle for the first time in their own hands. It had to suggest a high price and a limited run using nothing but shape and texture.",
+    "approach": [
+      "We made the box hold the bottle snugly from every side, so it feels solid and weighty the moment you pick it up.",
+      "The logo is pressed into the black card rather than printed on it, so you can only read it by the way it catches the light. It feels carved, not labelled.",
+      "A single diagonal strip of shiny foil runs across the label, so the colour shifts as you turn the bottle in your hand."
+    ],
+    "outcome": [
+      { "value": "400", "label": "Bottles, each one numbered" },
+      { "value": "3.4×", "label": "Higher price than the previous release" },
+      { "value": "0", "label": "Boxes damaged in transit" }
+    ],
+    "pullQuote": "People photograph the box before they even open it. We never asked for that, but it happens every time.",
+    "quoteBy": "Founder, Nocturne Distillery",
+    "next": "vanguard-ai"
+  },
+  {
+    "slug": "vanguard-ai",
+    "index": "VANGUARD AI",
+    "title": "Logo and Brand Kit for a Robotics Lab",
+    "year": "2024",
+    "discipline": "Logo and Branding",
+    "series": "Technology",
+    "size": "narrow",
+    "image": "work-vanguard-ai.png",
+    "alt": "Brand guide and stationery for Vanguard AI, printed on dark grey card with an engraved geometric logo",
+    "summary": "A logo and full brand kit for a robotics company whose mark had to look sharp etched into metal, embroidered on a hoodie, and tiny on a screen.",
+    "client": "Vanguard AI",
+    "role": ["Logo design", "Brand colours and fonts", "Brand guide"],
+    "stack": ["Logo", "Business cards", "Letterhead"],
+    "tldr": "Vanguard's old logo looked great on a large poster and turned to mush on a small screen. We made one simple mark that works at every size.",
+    "challenge": "The company makes hardware and software, so the same logo had to work on a metal part, a t-shirt and a phone screen. The old one only worked on paper.",
+    "approach": [
+      "We built the logo on a simple grid with one weight, so it can be made bigger or smaller without ever needing to be redrawn.",
+      "We designed a matching typeface with the same angled cuts as the logo, so the brand sounds consistent in writing too.",
+      "We put together a guide with ready-made versions for every situation, so nobody has to guess how to use it and get it wrong."
+    ],
+    "outcome": [
+      { "value": "1", "label": "Simple logo, no redraws needed" },
+      { "value": "Small", "label": "Still readable on a phone screen" },
+      { "value": "One kit", "label": "Covering cards, paper, shirts and screens" }
+    ],
+    "pullQuote": "It is the first logo we have rolled out without anyone asking us to make a second version.",
+    "quoteBy": "VP Brand, Vanguard AI",
+    "next": "chronos-node"
+  },
+  {
+    "slug": "chronos-node",
+    "index": "CHRONOS NODE",
+    "title": "Box Design for an Expensive Security Keypad",
+    "year": "2023",
+    "discipline": "Packaging Design",
+    "series": "Electronics",
+    "size": "wide",
+    "image": "work-chronos-node.png",
+    "alt": "Small titanium keypad device resting in a fitted black presentation box",
+    "summary": "A fitted presentation box for a high-end keypad, cut so the device sits perfectly still and looks like it belongs there.",
+    "client": "Chronos Node",
+    "role": ["Box design", "Choosing materials", "Unboxing plan"],
+    "stack": ["Aluminium", "Moulded plastic insert", "Black foam"],
+    "tldr": "People unbox this device once, usually on their own, and then keep it for years. The box had to justify the price in the first ten seconds.",
+    "challenge": "This is expensive, precision-made equipment, so anything loose or rattling in the box instantly makes it feel cheap. Most premium packaging solves this with a thick layer of foam, which looks like they could not be bothered to do it properly.",
+    "approach": [
+      "We made a plastic insert moulded from the device's exact shape, so it drops in perfectly and cannot move at all.",
+      "The outer box is made from aluminium with a machined groove down the side, so opening it feels like operating the product rather than tearing apart a carton.",
+      "We arranged everything so the first thing your hand touches is the device itself, not the packaging."
+    ],
+    "outcome": [
+      { "value": "No rattle", "label": "Device sits perfectly still in the box" },
+      { "value": "10 secs", "label": "Time to reach the device" },
+      { "value": "Every time", "label": "Boxes arrived without damage" }
+    ],
+    "pullQuote": "You open it once, on your own, in a quiet room. We had about ten seconds to make it feel worth what you paid.",
+    "quoteBy": "Chief Product Officer, Chronos Node",
+    "next": "aurum-elixir"
+  },
+  {
+    "slug": "aurum-elixir",
+    "index": "AURUM ELIXIR",
+    "title": "Shiny Sleeve for a Canned Drinks Range",
+    "year": "2025",
+    "discipline": "Packaging Design",
+    "series": "Beverages",
+    "size": "narrow",
+    "image": "work-aurum-elixir.png",
+    "alt": "Aluminium drinks can with a shiny holographic sleeve resting on a grey surface",
+    "summary": "A shiny can sleeve for a drinks brand competing against bottled water on price, without looking cheap on a cold shelf.",
+    "client": "Aurum Beverages",
+    "role": ["Sleeve design", "Choosing finishes", "Shop testing"],
+    "stack": ["Shiny foil", "Matte print", "Card sleeve"],
+    "tldr": "Aurum sells a canned drink that costs more than bottled water. The sleeve had to make the extra money feel justified from across a shop, on a fridge shelf.",
+    "challenge": "Cold cans are covered in condensation, and water sitting on a matte print makes the design disappear. The can is always bought wet, so anything fragile would never be seen.",
+    "approach": [
+      "We put the brand name on a strip of shiny foil that sits on top of the condensation, so the name stays readable no matter how wet the can gets.",
+      "One bold diagonal band of shine catches the eye from a distance, without turning the can into a party trick.",
+      "We tested three versions in a real fridge before signing off, and threw out the first two because the words were hard to read when wet."
+    ],
+    "outcome": [
+      { "value": "3", "label": "Versions tested in a fridge" },
+      { "value": "Readable", "label": "Even on a wet, cold can" },
+      { "value": "Shops", "label": "Happy to stock the new design" }
+    ],
+    "pullQuote": "We tested it in the fridge, in the rain and under the shop lights. It held up in all three. That was the whole job.",
+    "quoteBy": "Brand Director, Aurum Beverages",
+    "next": null
+  },
+  {
+    "slug": "kinetic-culture-duality",
+    "index": "KINETIC CULTURE",
+    "title": "Poster Series for an Art Gallery Exhibition",
+    "year": "2023",
+    "discipline": "Posters and Print",
+    "series": "Exhibition",
+    "size": "tall",
+    "image": "work-poster-series.png",
+    "alt": "Gallery poster series with large bold black and silver typography",
+    "summary": "A set of twelve gallery posters that repeat the same simple layout, printed with a silver ink that shifts as you walk past.",
+    "client": "Kulturhalle Ost",
+    "role": ["Design direction", "Typography", "Print production"],
+    "stack": ["Screen printing", "Silver ink", "Heavy varnish"],
+    "tldr": "The exhibition was about identity and repetition, so the posters had to actually do both things rather than just mention them.",
+    "challenge": "The people coming to this show notice design for a living. Anything that looked purely decorative would have contradicted the whole subject of the show.",
+    "approach": [
+      "Every poster uses the same layout and only two font sizes, so they read as variations of one idea rather than twelve different ones.",
+      "The silver ink is printed under a thick glossy coat, so the words change brightness as you walk past. The print itself becomes part of the idea.",
+      "We taped a full-size proof to the gallery wall before printing the whole run, because silver ink looks different on a lit wall than it does on a table."
+    ],
+    "outcome": [
+      { "value": "12", "label": "Posters, all from one layout" },
+      { "value": "2", "label": "Font sizes used in total" },
+      { "value": "Checked", "label": "A full-size proof on the real wall first" }
+    ],
+    "pullQuote": "They came to the gallery to check the proof before we printed anything. Nobody had done that before. It saved the show.",
+    "quoteBy": "Curator, Kulturhalle Ost",
+    "next": null
+  }
+]

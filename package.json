@@ -1,0 +1,22 @@
+{
+  "name": "kaytheboss",
+  "version": "1.0.0",
+  "private": true,
+  "description": "KAYTHEBOSS — Graphic Design Studio. Static site with case studies and journal.",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs && npm run build:css",
+    "build:css": "tailwindcss -i src/assets/css/site.css -o dist/assets/css/app.css --minify",
+    "watch:css": "tailwindcss -i src/assets/css/site.css -o dist/assets/css/app.css --watch",
+    "verify": "node verify.mjs",
+    "dev": "npm run build && node preview.mjs",
+    "serve": "node preview.mjs",
+    "preview": "npm run build && node preview.mjs",
+    "cms:dev": "npm --prefix admin run dev",
+    "cms:build": "npm --prefix admin run build",
+    "cms:deploy": "npm --prefix admin run deploy"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  }
+}

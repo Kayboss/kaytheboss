@@ -1,0 +1,51 @@
+{
+  "name": "KAYTHEBOSS",
+  "tagline": "GRAPHIC DESIGN STUDIO",
+  "description": "KAYTHEBOSS is a graphic design studio in Berlin and New York. We design packaging, logos, websites and posters that people notice — and that make your business easier to choose.",
+  "url": "https://kaytheboss.studio",
+  "locale": "en",
+  "email": "commissions@kaytheboss.studio",
+  "locations": ["BERLIN", "NYC"],
+  "nav": [
+    { "label": "Home", "href": "/" },
+    { "label": "Works", "href": "/work/" },
+    { "label": "Journal", "href": "/journal/" },
+    { "label": "Studio", "href": "/about.html" },
+    { "label": "Commission", "href": "/commission.html" }
+  ],
+  "disciplines": [
+    {
+      "index": "01",
+      "title": "Packaging & Labels",
+      "icon": "inventory_2",
+      "code": "Packaging",
+      "body": "Packaging that stands out on a busy shelf and feels worth the price in your hand.",
+      "points": ["Looks that catch the eye in-store", "Boxes and bottles that fit properly", "Foil, embossing and finishes"]
+    },
+    {
+      "index": "02",
+      "title": "Logos & Branding",
+      "icon": "polyline",
+      "code": "Branding",
+      "body": "A logo and a look that people recognise, plus simple rules so your team can use it correctly.",
+      "points": ["Logo design", "Colours, fonts and style guides", "Brand names and taglines"]
+    },
+    {
+      "index": "03",
+      "title": "Websites & Apps",
+      "icon": "terminal",
+      "code": "Web",
+      "body": "Websites and app screens that load quickly, are easy to use, and look the way you intended.",
+      "points": ["Website design", "App and dashboard screens", "Design that works on every screen size"]
+    },
+    {
+      "index": "04",
+      "title": "Posters & Print",
+      "icon": "campaign",
+      "code": "Print",
+      "body": "Big, bold printed work — posters, flyers and editorial design that people notice.",
+      "points": ["Posters and flyers", "Menus, reports and books", "Files ready to send to any printer"]
+    }
+  ],
+  "ethos": ["GOOD TASTE", "NO WASTED TIME", "HONEST ADVICE", "WORK THAT SELLS"]
+}
