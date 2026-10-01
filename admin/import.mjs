@@ -67,6 +67,10 @@ const INLINE_RE =
 const styleFor = (tag) =>
   tag === "h2" ? "h2" : tag === "h3" ? "h3" : tag === "blockquote" ? "blockquote" : "normal";
 
+// Stable unique keys for array items (Studio requires _key on object items).
+let _k = 0;
+const keyFor = () => `k${(_k++).toString(36)}${Date.now().toString(36).slice(-4)}`;
+
 function htmlToBlocks(html) {
   const blocks = [];
   let spans = [];           // pending spans for current block
@@ -90,10 +94,11 @@ function htmlToBlocks(html) {
   const flushBlock = () => {
     const children = spans
       .filter((s) => s.text.trim())
-      .map((s) => ({ _type: "span", marks: s.marks, text: s.text }));
+      .map((s) => ({ _key: keyFor(), _type: "span", marks: s.marks, text: s.text }));
     spans = [];
     if (children.length) {
       blocks.push({
+        _key: keyFor(),
         _type: "block",
         style: listType ? "normal" : style,
         listItem: listType ?? undefined,
@@ -169,7 +174,7 @@ async function mapWork(entry) {
     tldr: entry.tldr,
     challenge: entry.challenge,
     approach: entry.approach,
-    outcome: entry.outcome,
+    outcome: (entry.outcome || []).map((o) => ({ _key: keyFor(), ...o })),
     pullQuote: entry.pullQuote,
     quoteBy: entry.quoteBy,
     next: entry.next,
