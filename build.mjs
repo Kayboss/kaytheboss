@@ -150,6 +150,10 @@ const fmtDate = (iso) =>
 const workHref = (w) => `/work/${w.slug}.html`;
 const postHref = (p) => `/journal/${p.slug}.html`;
 
+// Local JSON stores a filename ("work-x.png"); Sanity returns a full CDN URL.
+const imgSrc = (w) =>
+  /^https?:\/\//.test(w.image || "") ? w.image : `/assets/img/${w.image}`;
+
 /* ------------------------------------------------------------------ */
 /* Shared fragments                                                    */
 /* ------------------------------------------------------------------ */
@@ -207,7 +211,7 @@ function workCard(w, i) {
   const href = workHref(w);
   return `<article class="interactive-card reveal-item ${SPAN[w.size] || "lg:col-span-4"} bg-[#121316] overflow-hidden flex flex-col justify-between group border border-[#332e1f]" style="transition-delay:${100 + i * 50}ms">
   <a href="${href}" class="block relative w-full h-80 sm:h-96 overflow-hidden focus:outline-none" tabindex="-1" aria-hidden="true">
-    <img alt="" class="case-study-img w-full h-full object-cover" src="/assets/img/${w.image}" loading="lazy" decoding="async">
+    <img alt="" class="case-study-img w-full h-full object-cover" src="${imgSrc(w)}" loading="lazy" decoding="async">
     <span class="absolute inset-0 bg-gradient-to-t from-[#121316] via-transparent to-transparent"></span>
   </a>
   <div class="absolute top-space-md left-space-md flex gap-space-xs pointer-events-none">
@@ -248,7 +252,7 @@ function workIndexCards() {
     .map(
       (w, i) => `<article class="interactive-card reveal-item bg-[#121316] border border-[#332e1f] overflow-hidden flex flex-col group" style="transition-delay:${i * 60}ms">
   <a href="${workHref(w)}" class="block relative w-full h-64 overflow-hidden focus:outline-none" tabindex="-1" aria-hidden="true">
-    <img alt="" class="case-study-img w-full h-full object-cover" src="/assets/img/${w.image}" loading="lazy" decoding="async">
+    <img alt="" class="case-study-img w-full h-full object-cover" src="${imgSrc(w)}" loading="lazy" decoding="async">
     <span class="absolute inset-0 bg-gradient-to-t from-[#121316] via-transparent to-transparent"></span>
   </a>
   <div class="p-space-lg flex flex-col gap-space-sm flex-1 relative">
@@ -359,7 +363,11 @@ for (const w of work) {
     description: w.summary,
     url: site.url + workHref(w),
     w,
-    image: `/assets/img/${w.image}`,
+    image: imgSrc(w),
+    ogImage: (() => {
+      const src = imgSrc(w);
+      return /^https?:\/\//.test(src) ? src : site.url + src;
+    })(),
     approach: w.approach.map((a) => `<li>${escapeHtml(a)}</li>`).join(""),
     outcomes: w.outcome
       .map(
