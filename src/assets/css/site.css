@@ -243,7 +243,7 @@
   }
 
   /* ---- How we work (step boxes) ---- */
-  /* Each step is a panel: off-white ground, black border, black type. The
+  /* Each step is a panel: transparent fill, black border, black type. The
      gap between panels is what separates them, so no divider rules needed. */
   .how-we-work .step {
     position: relative;
@@ -251,7 +251,7 @@
     flex-direction: column;
     height: 100%;
     padding: 1.5rem;
-    background: #f5f2ea;
+    background: transparent;
     border: 1px solid #08080a;
     transition:
       border-color 0.3s ease,
