@@ -243,8 +243,9 @@
   }
 
   /* ---- How we work (step boxes) ---- */
-  /* Each step is a panel: transparent fill, black border, black type. The
-     gap between panels is what separates them, so no divider rules needed. */
+  /* Each step is a panel: transparent fill, gold border, cream type on the
+     navy section band. The gap between panels is what separates them, so no
+     divider rules are needed. */
   .how-we-work .step {
     position: relative;
     display: flex;
@@ -252,7 +253,7 @@
     height: 100%;
     padding: 1.5rem;
     background: transparent;
-    border: 1px solid #08080a;
+    border: 1px solid #f5c842;
     transition:
       border-color 0.3s ease,
       box-shadow 0.3s ease;
@@ -261,7 +262,7 @@
      would imply they can be clicked. */
   .how-we-work .step-num {
     font-weight: 700;
-    color: #08080a;
+    color: #f5c842;
   }
   /* Title is held at 18px so it stays clearly ahead of the now-15px body
      copy instead of crowding it. */
@@ -269,16 +270,16 @@
     font-weight: 700;
     font-size: 18px;
     line-height: 25px;
-    color: #08080a;
+    color: #d2c6a2;
   }
   /* Body copy runs a step larger and heavier than the 13px/400 default: at
-     panel width it was reading as a footnote under the title. Kept dark to
-     hold enough weight against the off-white ground. */
+     panel width it was reading as a footnote under the title. Cream keeps
+     enough weight to read clearly against the navy ground. */
   .how-we-work .step-body {
     font-weight: 500;
     font-size: 15px;
     line-height: 23px;
-    color: #08080a;
+    color: #d2c6a2;
   }
   @media (min-width: 640px) {
     .how-we-work .step {
