@@ -243,19 +243,16 @@
   }
 
   /* ---- How we work (step boxes) ---- */
-  /* Each step is a button-like panel: gold ground, black type, hard corners
-     to match the rest of the site. The gap between panels is what separates
-     them now, so no divider rules are needed. */
+  /* Each step is a panel: off-white ground, black border, black type. The
+     gap between panels is what separates them, so no divider rules needed. */
   .how-we-work .step {
     position: relative;
     display: flex;
     flex-direction: column;
     height: 100%;
     padding: 1.5rem;
-    background: #f5c842;
-    /* Panel against the dark band is already 11:1, so the border only has to
-       read as a crisp edge on the gold itself rather than carry the shape. */
-    border: 1px solid rgba(8, 8, 10, 0.35);
+    background: #f5f2ea;
+    border: 1px solid #08080a;
     transition:
       border-color 0.3s ease,
       box-shadow 0.3s ease;
@@ -275,13 +272,13 @@
     color: #08080a;
   }
   /* Body copy runs a step larger and heavier than the 13px/400 default: at
-     panel width it was reading as a footnote under the title. Darkened to
-     match the added weight, which still clears AAA on gold. */
+     panel width it was reading as a footnote under the title. Kept dark to
+     hold enough weight against the off-white ground. */
   .how-we-work .step-body {
     font-weight: 500;
     font-size: 15px;
     line-height: 23px;
-    color: #24211a;
+    color: #08080a;
   }
   @media (min-width: 640px) {
     .how-we-work .step {
