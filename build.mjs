@@ -209,17 +209,17 @@ const SPAN = { wide: "lg:col-span-8", tall: "lg:col-span-4", narrow: "lg:col-spa
 
 function workCard(w, i) {
   const href = workHref(w);
-  return `<article class="interactive-card reveal-item ${SPAN[w.size] || "lg:col-span-4"} bg-[#121316] overflow-hidden flex flex-col justify-between group border border-[#332e1f]" style="transition-delay:${100 + i * 50}ms">
-  <a href="${href}" class="block relative w-full h-80 sm:h-96 overflow-hidden focus:outline-none" tabindex="-1" aria-hidden="true">
-    <img alt="" class="case-study-img w-full h-full object-cover" src="${imgSrc(w)}" loading="lazy" decoding="async">
-    <span class="absolute inset-0 bg-gradient-to-t from-[#121316] via-transparent to-transparent"></span>
+  return `<article class="interactive-card reveal-item ${SPAN[w.size] || "lg:col-span-4"} bg-[#121316] overflow-hidden relative group border border-[#332e1f] h-80 sm:h-96 lg:h-[30rem]" style="transition-delay:${100 + i * 50}ms">
+  <a href="${href}" class="absolute inset-0 block overflow-hidden focus:outline-none" tabindex="-1" aria-hidden="true">
+    <img alt="" class="case-study-img absolute inset-0 w-full h-full object-cover" src="${imgSrc(w)}" loading="lazy" decoding="async">
+    <span class="absolute inset-0 bg-gradient-to-t from-[#121316] via-[#121316]/20 to-transparent"></span>
   </a>
   <div class="absolute top-space-md left-space-md flex gap-space-xs pointer-events-none">
     <span class="bg-[#050506]/90 text-[#F5C842] border border-[#332e1f] font-label-sm text-label-sm px-space-xs py-1 uppercase">${escapeHtml(w.discipline)}</span>
     ${w.series ? `<span class="bg-[#050506]/90 text-[#A1A1AA] border border-[#332e1f] font-label-sm text-label-sm px-space-xs py-1 uppercase">${escapeHtml(w.series)}</span>` : ""}
   </div>
   <div class="absolute top-space-md right-space-md font-label-sm text-label-sm text-[#e5e1e4] bg-[#050506]/90 border border-[#332e1f] px-space-xs py-1 pointer-events-none">${escapeHtml(w.year)}</div>
-  <div class="p-space-lg flex flex-col sm:flex-row sm:items-end justify-between gap-space-md relative">
+  <div class="absolute inset-x-0 bottom-0 p-space-lg flex flex-col sm:flex-row sm:items-end justify-between gap-space-md relative">
     <div class="space-y-space-xs max-w-xl">
       <span class="font-label-sm text-label-sm text-[#F5C842] uppercase tracking-wider flex items-center gap-1.5"><span aria-hidden="true" class="w-1.5 h-1.5 bg-[#F5C842] rounded-full"></span>PROJECT: ${escapeHtml(w.index)}</span>
       <h3 class="font-headline-md text-headline-md uppercase text-white font-bold group-hover:text-[#ffe08f] transition-colors"><a href="${href}" class="focus:outline-none after:absolute after:inset-0 after:content-['']">${escapeHtml(w.title)}</a></h3>
