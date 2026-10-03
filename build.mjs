@@ -334,7 +334,7 @@ const homeData = {
   disciplines: site.disciplines.map(disciplineCard).join(""),
   marquee: marquee(),
   telemetry: telemetryStrip(),
-  cases: work.slice(0, 4).map(workCard).join(""),
+  cases: work.slice(0, 5).map(workCard).join(""),
   totalWork: work.length,
 };
 

@@ -90,13 +90,13 @@
     "next": "chronos-node"
   },
   {
-    "slug": "chronos-node",
+"slug": "chronos-node",
     "index": "CHRONOS NODE",
     "title": "Box Design for an Expensive Security Keypad",
     "year": "2023",
-    "discipline": "Packaging Design",
-    "series": "Electronics",
-    "size": "wide",
+    "discipline": "Packaging",
+    "series": "",
+    "size": "tall",
     "image": "work-chronos-node.png",
     "alt": "Small titanium keypad device resting in a fitted black presentation box",
     "summary": "A fitted presentation box for a high-end keypad, cut so the device sits perfectly still and looks like it belongs there.",
