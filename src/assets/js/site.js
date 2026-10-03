@@ -178,41 +178,6 @@ if (!REDUCED && matchMedia("(pointer: fine)").matches) {
 }
 
 /* ------------------------------------------------------------------ */
-/* Brand identity playground                                           */
-/* ------------------------------------------------------------------ */
-
-if (!REDUCED && matchMedia("(pointer: fine)").matches) {
-  document.querySelectorAll("[data-identity-stage]").forEach((stage) => {
-    const mark = stage.querySelector("[data-mark]");
-    const glyph = stage.querySelector("[data-mark-glyph]");
-    const sub = stage.querySelector("[data-sub]");
-
-    stage.addEventListener("pointermove", (e) => {
-      const r = stage.getBoundingClientRect();
-      const px = e.clientX - (r.left + r.width / 2);
-      const py = e.clientY - (r.top + r.height / 2);
-      const dist = Math.hypot(px, py) || 1;
-
-      if (mark) {
-        mark.style.transform = `translate(${px * 0.04}px, ${py * 0.04}px) scale(${
-          1 + Math.max(0, 1 - dist / 420) * 0.12
-        })`;
-      }
-      if (glyph) {
-        glyph.style.transform = `translate(${px * 0.02}px, ${py * 0.02}px)`;
-      }
-      if (sub) {
-        sub.style.transform = `translate(${(px / dist) * 18}px, ${(py / dist) * 18}px)`;
-      }
-    });
-
-    stage.addEventListener("pointerleave", () => {
-      [mark, glyph, sub].forEach((el) => el && (el.style.transform = ""));
-    });
-  });
-}
-
-/* ------------------------------------------------------------------ */
 /* ------------------------------------------------------------------ */
 /* Full-height hero offset                                             */
 /* ------------------------------------------------------------------ */
