@@ -209,8 +209,8 @@ const SPAN = { wide: "lg:col-span-8", tall: "lg:col-span-4", narrow: "lg:col-spa
 
 function workCard(w, i) {
   const href = workHref(w);
-  return `<article class="interactive-card reveal-item ${SPAN[w.size] || "lg:col-span-4"} bg-[#121316] overflow-hidden flex flex-col group border border-[#332e1f] h-80 sm:h-96 lg:h-[30rem]" style="transition-delay:${100 + i * 50}ms">
-  <a href="${href}" class="relative block w-full flex-1 overflow-hidden focus:outline-none" tabindex="-1" aria-hidden="true">
+  return `<article class="interactive-card reveal-item ${SPAN[w.size] || "lg:col-span-4"} bg-[#121316] overflow-hidden flex flex-col group border border-[#332e1f] min-h-[26rem] sm:h-96 lg:h-[30rem]" style="transition-delay:${100 + i * 50}ms">
+  <a href="${href}" class="relative block w-full flex-1 min-h-[13rem] overflow-hidden focus:outline-none" tabindex="-1" aria-hidden="true">
     <img alt="" class="case-study-img absolute inset-0 w-full h-full object-cover" src="${imgSrc(w)}" loading="lazy" decoding="async">
     <span class="absolute inset-0 bg-gradient-to-t from-[#121316]/40 via-transparent to-transparent"></span>
   </a>
