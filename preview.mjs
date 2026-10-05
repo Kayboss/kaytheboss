@@ -1,6 +1,7 @@
 import { createServer } from "node:http";
 import { readFile, stat } from "node:fs/promises";
 import path from "node:path";
+import { default as commissionHandler } from "./api/commission.js";
 
 const DIST = path.resolve("dist");
 const TYPES = {
@@ -16,6 +17,15 @@ const TYPES = {
 
 createServer(async (req, res) => {
   const url = decodeURIComponent(req.url.split("?")[0].split("#")[0]);
+
+  /* API route (local dev, so the enquiry form can be tested without Vercel). */
+  if (url === "/api/commission") {
+    let body = "";
+    for await (const chunk of req) body += chunk;
+    req.body = body;
+    return commissionHandler(req, res);
+  }
+
   let file = path.join(DIST, url);
 
   if (!file.startsWith(DIST)) {

@@ -220,7 +220,9 @@ if (brief && counter) {
 }
 
 if (form && status) {
-  form.addEventListener("submit", (e) => {
+  const submit = form.querySelector('button[type="submit"]');
+
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const required = [...form.querySelectorAll("[required]")];
@@ -235,25 +237,41 @@ if (form && status) {
     }
 
     const data = Object.fromEntries(new FormData(form).entries());
-    const subject = `Project enquiry — ${data.discipline} — ${data.name}`;
-    const body = [
-      `Name: ${data.name}`,
-      `Email: ${data.email}`,
-      `Company: ${data.company || "—"}`,
-      `Project type: ${data.discipline}`,
-      `Budget: ${data.budget}`,
-      `Timeline: ${data.timeline || "—"}`,
-      `Needs an NDA first: ${data.nda ? "yes" : "no"}`,
-      "",
-      data.brief,
-    ].join("\n");
+    delete data.company_website; // honeypot: never send it
 
     status.classList.remove("text-[#ffb4ab]");
     status.classList.add("text-[#F5C842]");
-    status.textContent = "Opening your email app…";
+    status.textContent = "Sending…";
+    if (submit) submit.disabled = true;
 
-    location.href = `mailto:commissions@kaytheboss.studio?subject=${encodeURIComponent(
-      subject
-    )}&body=${encodeURIComponent(body)}`;
+    try {
+      const res = await fetch("/api/commission", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      const out = await res.json().catch(() => ({}));
+
+      if (!res.ok || !out.ok) {
+        throw new Error(out.error || "send-failed");
+      }
+
+      form.reset();
+      if (counter) counter.textContent = "0 / 1200";
+      status.textContent = out.message || "Sent - Zac will be in touch.";
+      if (submit) submit.disabled = false;
+    } catch (err) {
+      status.classList.add("text-[#ffb4ab]");
+      status.classList.remove("text-[#F5C842]");
+
+      if (err.message === "too-many") {
+        status.textContent = "Too many sends - please email us directly.";
+      } else if (err.message === "bad-email") {
+        status.textContent = "That email address doesn't look right.";
+      } else {
+        status.textContent = "Couldn't send. Please email commissions@kaytheboss.studio";
+      }
+      if (submit) submit.disabled = false;
+    }
   });
 }
