@@ -145,38 +145,8 @@
       { "value": "Readable", "label": "Even on a wet, cold can" },
       { "value": "Shops", "label": "Happy to stock the new design" }
     ],
-    "pullQuote": "We tested it in the fridge, in the rain and under the shop lights. It held up in all three. That was the whole job.",
+"pullQuote": "We tested it in the fridge, in the rain and under the shop lights. It held up in all three. That was the whole job.",
     "quoteBy": "Brand Director, Aurum Beverages",
-    "next": null
-  },
-  {
-    "slug": "kinetic-culture-duality",
-    "index": "KINETIC CULTURE",
-    "title": "Poster Series for an Art Gallery Exhibition",
-    "year": "2023",
-    "discipline": "Posters and Print",
-    "series": "Exhibition",
-    "size": "tall",
-    "image": "work-poster-series.png",
-    "alt": "Gallery poster series with large bold black and silver typography",
-    "summary": "A set of twelve gallery posters that repeat the same simple layout, printed with a silver ink that shifts as you walk past.",
-    "client": "Kulturhalle Ost",
-    "role": ["Design direction", "Typography", "Print production"],
-    "stack": ["Screen printing", "Silver ink", "Heavy varnish"],
-    "tldr": "The exhibition was about identity and repetition, so the posters had to actually do both things rather than just mention them.",
-    "challenge": "The people coming to this show notice design for a living. Anything that looked purely decorative would have contradicted the whole subject of the show.",
-    "approach": [
-      "Every poster uses the same layout and only two font sizes, so they read as variations of one idea rather than twelve different ones.",
-      "The silver ink is printed under a thick glossy coat, so the words change brightness as you walk past. The print itself becomes part of the idea.",
-      "We taped a full-size proof to the gallery wall before printing the whole run, because silver ink looks different on a lit wall than it does on a table."
-    ],
-    "outcome": [
-      { "value": "12", "label": "Posters, all from one layout" },
-      { "value": "2", "label": "Font sizes used in total" },
-      { "value": "Checked", "label": "A full-size proof on the real wall first" }
-    ],
-    "pullQuote": "They came to the gallery to check the proof before we printed anything. Nobody had done that before. It saved the show.",
-    "quoteBy": "Curator, Kulturhalle Ost",
     "next": null
   }
 ]

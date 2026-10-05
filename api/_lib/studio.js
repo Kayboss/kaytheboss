@@ -12,7 +12,6 @@ export const STUDIO = {
     "Packaging and label design (boxes, bottles, shelf presence, finishes)",
     "Logos and branding (logo, colour, fonts, style guides, names and taglines)",
     "Websites and apps (website design, app/dashboard screens, responsive design)",
-    "Posters and print (posters, flyers, menus, reports, books, print-ready files)",
   ],
   /* Honest commercial context, so replies can steer expectations. Adjust to
      your real numbers. */
@@ -24,7 +23,6 @@ export const STUDIO = {
       branding: "$6,000 - $20,000 depending on scope",
       packaging: "$8,000 - $40,000 depending on range and finishes",
       web: "$10,000 - $60,000 depending on size and complexity",
-      print: "$2,000 - $12,000 depending on quantity and format",
     },
     /* How you like to handle timelines. */
     typicalLeadTime: "Usually 4 - 10 weeks from kickoff, depending on scope",

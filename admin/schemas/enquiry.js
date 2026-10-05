@@ -27,7 +27,6 @@ export default defineType({
           { title: "Packaging or label design", value: "packaging" },
           { title: "Logo or branding", value: "identity" },
           { title: "Website or app design", value: "web" },
-          { title: "Poster or print design", value: "print" },
           { title: "Something else", value: "other" },
         ],
       },

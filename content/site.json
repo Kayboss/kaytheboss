@@ -1,7 +1,7 @@
 {
   "name": "KAYTHEBOSS",
   "tagline": "GRAPHIC DESIGN STUDIO",
-  "description": "KAYTHEBOSS is a graphic design studio in Berlin and New York. We design packaging, logos, websites and posters that people notice — and that make your business easier to choose.",
+  "description": "KAYTHEBOSS is a graphic design studio in Berlin and New York. We design packaging, logos and websites that people notice — and that make your business easier to choose.",
   "url": "https://kaytheboss.studio",
   "locale": "en",
   "email": "commissions@kaytheboss.studio",
@@ -37,14 +37,6 @@
       "code": "Web",
       "body": "Websites and app screens that load quickly, are easy to use, and look the way you intended.",
       "points": ["Website design", "App and dashboard screens", "Design that works on every screen size"]
-    },
-    {
-      "index": "04",
-      "title": "Posters & Print",
-      "icon": "campaign",
-      "code": "Print",
-      "body": "Big, bold printed work — posters, flyers and editorial design that people notice.",
-      "points": ["Posters and flyers", "Menus, reports and books", "Files ready to send to any printer"]
     }
   ],
   "ethos": ["GOOD TASTE", "NO WASTED TIME", "HONEST ADVICE", "WORK THAT SELLS"]
