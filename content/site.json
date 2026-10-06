@@ -1,7 +1,7 @@
 {
   "name": "KAYTHEBOSS",
   "tagline": "GRAPHIC DESIGN STUDIO",
-  "description": "KAYTHEBOSS is a graphic design studio in Berlin and New York. We design packaging, logos and websites that people notice — and that make your business easier to choose.",
+  "description": "KAYTHEBOSS is a graphic design studio in Berlin and New York. We design labels, posters, visual identities and websites that people notice — and that make your business easier to choose.",
   "url": "https://kaytheboss.studio",
   "locale": "en",
   "email": "commissions@kaytheboss.studio",
@@ -16,11 +16,11 @@
   "disciplines": [
     {
       "index": "01",
-      "title": "Packaging & Labels",
+      "title": "Labels and Posters",
       "icon": "inventory_2",
-      "code": "Packaging",
-      "body": "Packaging that stands out on a busy shelf and feels worth the price in your hand.",
-      "points": ["Looks that catch the eye in-store", "Boxes and bottles that fit properly", "Foil, embossing and finishes"]
+      "code": "Labels & Posters",
+      "body": "Labels and posters that catch the eye from across the room, and still hold up close up.",
+      "points": ["Bottle and product labels", "Posters, wall prints and signage", "Press-ready files for any printer"]
     },
     {
       "index": "02",

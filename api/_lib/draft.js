@@ -17,7 +17,7 @@ const SYSTEM = [
   "",
   "COMMERCIAL CONTEXT:",
   `- Projects below about $${STUDIO.commercial.budgetFloorUsd.toLocaleString()} are usually not worth taking; say so kindly and suggest what would fit.`,
-  `- Typical ranges: branding ${STUDIO.commercial.typicalRanges.branding}; packaging ${STUDIO.commercial.typicalRanges.packaging}; web ${STUDIO.commercial.typicalRanges.web}.`,
+  `- Typical ranges: visual identity ${STUDIO.commercial.typicalRanges.branding}; labels and posters ${STUDIO.commercial.typicalRanges.labelsPosters}; web ${STUDIO.commercial.typicalRanges.web}.`,
   `- Typical lead time: ${STUDIO.commercial.typicalLeadTime}.`,
   "",
   "VOICE:",

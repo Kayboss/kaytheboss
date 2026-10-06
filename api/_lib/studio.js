@@ -9,7 +9,7 @@ export const STUDIO = {
   /* What you actually do. The model is told to offer ONLY these, so drafts
      can never promise a service you don't offer. */
   services: [
-    "Packaging and label design (boxes, bottles, shelf presence, finishes)",
+    "Labels and posters (bottle/product labels, posters, wall prints and signage, press-ready files)",
     "Visual identity design (logo, colour, fonts, style guides, names and taglines)",
     "Websites and apps (website design, app/dashboard screens, responsive design)",
   ],
@@ -21,7 +21,7 @@ export const STUDIO = {
     /* Typical starting ranges, by service, purely as a soft guide. */
     typicalRanges: {
       branding: "$6,000 - $20,000 depending on scope",
-      packaging: "$8,000 - $40,000 depending on range and finishes",
+      labelsPosters: "$8,000 - $40,000 depending on range and finishes",
       web: "$10,000 - $60,000 depending on size and complexity",
     },
     /* How you like to handle timelines. */
