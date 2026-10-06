@@ -10,7 +10,7 @@ export const STUDIO = {
      can never promise a service you don't offer. */
   services: [
     "Packaging and label design (boxes, bottles, shelf presence, finishes)",
-    "Logos and branding (logo, colour, fonts, style guides, names and taglines)",
+    "Visual identity design (logo, colour, fonts, style guides, names and taglines)",
     "Websites and apps (website design, app/dashboard screens, responsive design)",
   ],
   /* Honest commercial context, so replies can steer expectations. Adjust to
