@@ -1,7 +1,7 @@
 {
   "name": "KAYTHEBOSS",
   "tagline": "GRAPHIC DESIGN STUDIO",
-  "description": "KAYTHEBOSS is a graphic design studio of one, working remotely. We design labels, posters, visual identities and websites that people notice — and that make your business easier to choose.",
+  "description": "KAYTHEBOSS is a graphic design studio of one, working remotely. We design labels, posters, visual identities and websites that make your customers feel they have found the obvious, premium choice.",
   "url": "https://kaytheboss.studio",
   "locale": "en",
   "email": "commissions@kaytheboss.studio",
@@ -18,7 +18,7 @@
       "title": "Labels and Posters",
       "icon": "inventory_2",
       "code": "Labels & Posters",
-      "body": "Labels and posters that catch the eye from across the room, and still hold up close up.",
+      "body": "Labels and posters that make a product feel premium before it says a word.",
       "points": ["Bottle and product labels", "Posters, wall prints and signage", "Press-ready files for any printer"]
     },
     {
