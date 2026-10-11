@@ -225,13 +225,11 @@ function workCard(w, i) {
     ${w.series ? `<span class="bg-[#050506]/90 text-[#A1A1AA] border border-[#332e1f] font-label-sm text-label-sm px-space-xs py-1 uppercase">${escapeHtml(w.series)}</span>` : ""}
   </div>
   <div class="absolute top-space-md right-space-md font-label-sm text-label-sm text-[#e5e1e4] bg-[#050506]/90 border border-[#332e1f] px-space-xs py-1 pointer-events-none">${escapeHtml(w.year)}</div>
-  <div class="p-space-lg flex flex-col sm:flex-row sm:items-end justify-between gap-space-md shrink-0">
-    <div class="space-y-space-xs max-w-xl">
-      <span class="font-label-sm text-label-sm text-[#F5C842] uppercase tracking-wider flex items-center gap-1.5"><span aria-hidden="true" class="w-1.5 h-1.5 bg-[#F5C842] rounded-full"></span>PROJECT: ${escapeHtml(w.index)}</span>
-      <h3 class="font-headline-md text-headline-md uppercase text-white font-bold group-hover:text-[#ffe08f] transition-colors"><a href="${href}" class="focus:outline-none after:absolute after:inset-0 after:content-['']">${escapeHtml(w.title)}</a></h3>
-      <p class="font-body-sm text-[#d2c6a2] text-body-md">${escapeHtml(w.summary)}</p>
-    </div>
-    <span class="gold-cta btn-magnetic bg-[#F5C842] text-black px-space-md py-space-sm font-label-sm text-label-sm uppercase font-bold shrink-0 self-start sm:self-end shadow-[0_0_15px_rgba(245,200,66,0.2)] pointer-events-none">INSPECT CASE <span aria-hidden="true">→</span></span>
+  <div class="p-space-lg flex flex-col gap-space-sm shrink-0">
+    <span class="font-label-sm text-label-sm text-[#F5C842] uppercase tracking-wider flex items-center gap-1.5 self-start"><span aria-hidden="true" class="w-1.5 h-1.5 bg-[#F5C842] rounded-full"></span>PROJECT: ${escapeHtml(w.index)}</span>
+    <h3 class="font-headline-md text-headline-md uppercase text-white font-bold group-hover:text-[#ffe08f] transition-colors"><a href="${href}" class="focus:outline-none after:absolute after:inset-0 after:content-['']">${escapeHtml(w.title)}</a></h3>
+    <p class="font-body-sm text-[#d2c6a2] text-body-md">${escapeHtml(w.summary)}</p>
+    <span class="gold-cta btn-magnetic inline-flex items-center gap-space-xs self-start bg-[#F5C842] text-black px-space-md py-space-sm font-label-sm text-label-sm uppercase font-bold shadow-[0_0_15px_rgba(245,200,66,0.2)] pointer-events-none">INSPECT CASE <span aria-hidden="true">→</span></span>
   </div>
 </article>`;
 }
