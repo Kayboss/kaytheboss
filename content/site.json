@@ -1,11 +1,11 @@
 {
   "name": "KAYTHEBOSS",
   "tagline": "GRAPHIC DESIGN STUDIO",
-  "description": "KAYTHEBOSS is a graphic design studio in Berlin and New York. We design labels, posters, visual identities and websites that people notice — and that make your business easier to choose.",
+  "description": "KAYTHEBOSS is a graphic design studio of one, working remotely. We design labels, posters, visual identities and websites that people notice — and that make your business easier to choose.",
   "url": "https://kaytheboss.studio",
   "locale": "en",
   "email": "commissions@kaytheboss.studio",
-  "locations": ["BERLIN", "NYC"],
+  "locations": ["WORLDWIDE"],
   "nav": [
     { "label": "Home", "href": "/" },
     { "label": "Works", "href": "/work/" },

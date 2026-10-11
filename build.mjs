@@ -242,7 +242,7 @@ function telemetryStrip() {
   <div class="flex items-center gap-space-md font-label-sm text-label-sm text-[#A1A1AA]">
     <div class="flex items-center gap-space-xs"><span aria-hidden="true" class="w-1.5 h-1.5 rounded-full bg-[#F5C842] telemetry-pulse"></span><span class="text-[#F5C842] uppercase font-bold tracking-widest">GRAPHIC DESIGN STUDIO</span></div>
     <span aria-hidden="true" class="hidden md:inline">//</span>
-    <span class="hidden md:inline uppercase tracking-widest text-[#d2c6a2]">Berlin &amp; New York</span>
+    <span class="hidden md:inline uppercase tracking-widest text-[#d2c6a2]">Remote &amp; Worldwide</span>
   </div>
 </div>`;
 }
