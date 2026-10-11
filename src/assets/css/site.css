@@ -162,6 +162,17 @@
     background-color: #18191e;
   }
 
+  /* Emerald/teal secondary CTA - mirrors the "How we work" step 2 hue so the
+     hero pairs the gold primary with a cool, brand-adjacent accent. */
+  .teal-cta {
+    background: linear-gradient(135deg, #0f5c4e 0%, #0b3a31 100%);
+    border-color: rgba(45, 212, 191, 0.45);
+  }
+  .teal-cta:hover {
+    border-color: rgba(45, 212, 191, 0.8);
+    box-shadow: 0 0 22px rgba(45, 212, 191, 0.28);
+  }
+
   /* Ghost link with centre-out gradient underline */
   .link-underline {
     position: relative;
