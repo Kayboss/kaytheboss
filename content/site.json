@@ -10,8 +10,7 @@
     { "label": "Home", "href": "/" },
     { "label": "Works", "href": "/work/" },
     { "label": "Journal", "href": "/journal/" },
-    { "label": "Studio", "href": "/about.html" },
-    { "label": "Commission", "href": "/commission.html" }
+    { "label": "Studio", "href": "/about.html" }
   ],
   "disciplines": [
     {
