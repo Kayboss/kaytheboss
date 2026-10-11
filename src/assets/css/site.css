@@ -115,9 +115,19 @@
     transform: translateY(0);
   }
 
+  /* ---- Rounded corners ---- */
+  /* Every all-sides bordered surface gets a soft corner. One-side section
+     dividers (border-t / border-b / border-l / border-r) stay square - they
+     are separators, not cards. :where() keeps specificity at a single class
+     so the button and input rules below can override the radius. */
+  .border-\[\#332e1f\]:where(:not(.border-t)):where(:not(.border-b)):where(:not(.border-l)):where(:not(.border-r)) {
+    border-radius: 0.75rem;
+  }
+
   /* ---- Buttons ---- */
   .gold-cta,
   .btn-magnetic {
+    border-radius: 0.5rem;
     transition:
       transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
       box-shadow 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
@@ -138,6 +148,7 @@
   }
 
   .btn-ghost-magnetic {
+    border-radius: 0.5rem;
     transition:
       transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
       border-color 0.3s ease,
@@ -254,6 +265,7 @@
     padding: 1.5rem;
     background: transparent;
     border: 1px solid #f5c842;
+    border-radius: 0.75rem;
     transition:
       border-color 0.3s ease,
       box-shadow 0.3s ease;
@@ -459,6 +471,7 @@
     border-color: #ff8a7a;
   }
   .input-field-futuristic {
+    border-radius: 0.5rem;
     transition:
       border-color 0.25s ease,
       box-shadow 0.25s ease,
