@@ -263,12 +263,32 @@
     flex-direction: column;
     height: 100%;
     padding: 1.5rem;
-    background: transparent;
-    border: 1px solid #f5c842;
+    background: #121316;
+    border: 1px solid rgba(245, 200, 66, 0.35);
     border-radius: 0.75rem;
     transition:
       border-color 0.3s ease,
       box-shadow 0.3s ease;
+  }
+  /* Each step gets its own jewel-tone gradient that fades into the section's
+     black band. The hues are chosen to flatter the gold: amber (brand),
+     emerald, violet (gold's true complement) and crimson. Borders pick up the
+     same hue so the colour reads as intentional rather than random. */
+  .how-we-work .step:nth-child(1) {
+    background: linear-gradient(150deg, #4a3a12 0%, #221b0b 55%, #0e0f12 100%);
+    border-color: rgba(245, 200, 66, 0.55);
+  }
+  .how-we-work .step:nth-child(2) {
+    background: linear-gradient(150deg, #0d3b34 0%, #0b211d 55%, #0e0f12 100%);
+    border-color: rgba(45, 212, 191, 0.4);
+  }
+  .how-we-work .step:nth-child(3) {
+    background: linear-gradient(150deg, #2f1640 0%, #1a0e23 55%, #0e0f12 100%);
+    border-color: rgba(168, 85, 247, 0.4);
+  }
+  .how-we-work .step:nth-child(4) {
+    background: linear-gradient(150deg, #43141f 0%, #230b11 55%, #0e0f12 100%);
+    border-color: rgba(244, 114, 142, 0.4);
   }
   /* No hover lift or pointer cursor: these are static panels, and moving them
      would imply they can be clicked. */
