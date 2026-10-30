@@ -5,12 +5,26 @@
   "url": "https://kaytheboss.studio",
   "locale": "en",
   "email": "commissions@kaytheboss.studio",
-  "locations": ["WORLDWIDE"],
+  "locations": [
+    "WORLDWIDE"
+  ],
   "nav": [
-    { "label": "Home", "href": "/" },
-    { "label": "Works", "href": "/work/" },
-    { "label": "Journal", "href": "/journal/" },
-    { "label": "Studio", "href": "/about.html" }
+    {
+      "label": "Home",
+      "href": "/"
+    },
+    {
+      "label": "Works",
+      "href": "/work/"
+    },
+    {
+      "label": "Journal",
+      "href": "/journal/"
+    },
+    {
+      "label": "Studio",
+      "href": "/about.html"
+    }
   ],
   "disciplines": [
     {
@@ -19,7 +33,11 @@
       "icon": "inventory_2",
       "code": "Labels & Posters",
       "body": "Labels and posters that make a product feel premium before it says a word.",
-      "points": ["Bottle and product labels", "Posters, wall prints and signage", "Press-ready files for any printer"]
+      "points": [
+        "Bottle and product labels",
+        "Posters, wall prints and signage",
+        "Press-ready files for any printer"
+      ]
     },
     {
       "index": "02",
@@ -27,7 +45,11 @@
       "icon": "polyline",
       "code": "Branding",
       "body": "A logo and a look that people recognise, plus simple rules so your team can use it correctly.",
-      "points": ["Logo design", "Colours, fonts and style guides", "Brand names and taglines"]
+      "points": [
+        "Logo design",
+        "Colours, fonts and style guides",
+        "Brand names and taglines"
+      ]
     },
     {
       "index": "03",
@@ -35,8 +57,17 @@
       "icon": "terminal",
       "code": "Web",
       "body": "Websites and app screens that load quickly, are easy to use, and look the way you intended.",
-      "points": ["Website design", "App and dashboard screens", "Design that works on every screen size"]
+      "points": [
+        "Website design",
+        "App and dashboard screens",
+        "Design that works on every screen size"
+      ]
     }
   ],
-  "ethos": ["GOOD TASTE", "NO WASTED TIME", "HONEST ADVICE", "WORK THAT SELLS"]
+  "ethos": [
+    "GOOD TASTE",
+    "NO WASTED TIME",
+    "HONEST ADVICE",
+    "WORK THAT SELLS"
+  ]
 }

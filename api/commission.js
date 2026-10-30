@@ -33,6 +33,23 @@ function json(res, code, body) {
   res.end(JSON.stringify(body));
 }
 
+/* Save the enquiry to the self-hosted admin inbox. Off unless CONTENT_API_URL
+   (or ADMIN_INBOX_URL) is set, so nothing breaks on a plain Vercel deploy. */
+async function mirrorToInbox(enquiry) {
+  const base = process.env.CONTENT_API_URL || process.env.ADMIN_INBOX_URL;
+  if (!base) return;
+  try {
+    const res = await fetch(base.replace(/\/$/, "") + "/api/enquiry", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(enquiry),
+    });
+    if (!res.ok) console.error("[enquiry] inbox mirror failed:", res.status);
+  } catch (err) {
+    console.error("[enquiry] inbox mirror error:", err.message);
+  }
+}
+
 export default async function handler(req, res) {
   if (req.method === "GET") {
     return json(res, 200, {
@@ -108,6 +125,9 @@ export default async function handler(req, res) {
 
   /* 2. Store it in Sanity (non-fatal). */
   await saveEnquiry(enquiry);
+
+  /* 2b. Mirror it into the local admin inbox (non-fatal, never blocks). */
+  await mirrorToInbox(enquiry);
 
   /* 3. Email the owner (non-fatal - if email fails but Sanity saved, still ok). */
   await emailEnquiry(enquiry);

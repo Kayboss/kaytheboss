@@ -14,9 +14,9 @@
   <section aria-label="Introduction and Studio Capabilities" class="hero-fullscreen relative w-full bg-[#08080a] px-gutter md:px-margin-lg overflow-hidden border-b border-[#332e1f] flex items-center" id="hero-section">
 
     <!-- interactive 3D background, with the image underneath as a fallback -->
-    <div aria-hidden="true" class="hero-3d-layer absolute inset-0 pointer-events-none">
-      <canvas class="hero-3d-canvas block w-full h-full" id="hero-3d"></canvas>
-      <img alt="" id="hero-poster" class="hero-3d-poster absolute inset-0 w-full h-full object-cover object-center opacity-45" src="/assets/img/studio-sculpture.png" fetchpriority="high" decoding="async">
+    <div aria-hidden="true" class="hero-anim-layer absolute inset-0 pointer-events-none">
+      <canvas class="hero-anim-canvas block w-full h-full" id="hero-3d"></canvas>
+      <img alt="" id="hero-poster" class="hero-anim-poster absolute inset-0 w-full h-full object-cover object-center opacity-45" src="/assets/img/studio-sculpture.png" fetchpriority="high" decoding="async">
     </div>
     <!-- readability scrim: dark at the left where the text sits, fading right -->
     <div aria-hidden="true" class="absolute inset-0 pointer-events-none" style="background:linear-gradient(100deg, rgba(8,8,10,0.97) 0%, rgba(8,8,10,0.9) 38%, rgba(8,8,10,0.55) 65%, rgba(8,8,10,0.3) 100%)"></div>
@@ -31,18 +31,18 @@
         </div>
 
         <h1 class="hero-title font-display text-display-lg uppercase text-white tracking-tight font-extrabold leading-none">
-          <span class="reveal-line"><span>THE ONE</span></span>
-          <span class="reveal-line"><span class="text-[#F5C842] drop-shadow-[0_0_25px_rgba(245,200,66,0.3)]">THEY CHOOSE.</span></span>
+          <span class="reveal-line"><span>BE THE ONE</span></span>
+          <span class="reveal-line"><span class="text-[#F5C842] drop-shadow-[0_0_25px_rgba(245,200,66,0.3)]">TO STAND OUT.</span></span>
         </h1>
 
-        <p class="hero-lede font-body-lg text-body-lg text-[#d2c6a2] max-w-2xl leading-relaxed text-lg">KAYTHEBOSS is a graphic design studio of one. It takes the time to understand what your brand is really worth, and then designs labels, identities and websites that make customers feel you are the obvious, premium choice.</p>
+        <p class="hero-lede font-body-lg text-body-lg text-[#d2c6a2] max-w-2xl leading-relaxed text-lg">KAYTHEBOSS is a design studio that takes the time to understand what your brand's problem is, and then designs solutions such as Product Labels, Visual Identities, Apps and Websites that make you stand out.</p>
 
         <div class="pt-space-md flex flex-wrap items-center gap-space-md">
           <a href="/commission.html" class="hero-cta gold-cta btn-magnetic font-label-lg text-label-lg uppercase tracking-wider bg-[#F5C842] text-black px-space-lg py-space-md font-bold flex items-center gap-space-xs group">START A PROJECT <span aria-hidden="true" class="material-symbols-outlined text-base group-hover:translate-x-1.5 transition-transform duration-300">arrow_forward</span></a>
           <a href="/work/" class="hero-cta btn-ghost-magnetic teal-cta font-label-lg text-label-lg uppercase tracking-wider border text-white px-space-md py-space-md flex items-center gap-space-xs group"><span aria-hidden="true" class="material-symbols-outlined text-base group-hover:rotate-12 transition-transform duration-300">grid_view</span>SEE THE WORK</a>
         </div>
 
-        <p class="hero-reply font-body-sm text-body-sm text-[#A1A1AA]">Free to talk. KAYTHEBOSS replies within two working days.</p>
+
       </div>
     </div>
   </section>
@@ -137,7 +137,7 @@
   </section>
 
   <!-- ============ COMMISSION CTA ============ -->
-  <section aria-label="Start a project" class="w-full bg-[#050506] px-gutter md:px-margin-lg py-space-xl border-t border-[#332e1f]">
+  <section aria-label="Start a project" class="w-full px-gutter md:px-margin-lg py-space-xl border-t border-[#332e1f] cta-emerald">
     <div class="max-w-3xl mx-auto text-center reveal-item">
       <h2 class="font-display text-headline-lg uppercase text-white font-bold">GOT A PROJECT IN MIND?</h2>
       <p class="font-body-lg text-body-lg text-[#d2c6a2] mt-space-md">Tell KAYTHEBOSS what you need. You will get an honest answer about whether this is the right studio for it.</p>

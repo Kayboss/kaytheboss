@@ -150,9 +150,14 @@ const fmtDate = (iso) =>
 const workHref = (w) => `/work/${w.slug}.html`;
 const postHref = (p) => `/journal/${p.slug}.html`;
 
-// Local JSON stores a filename ("work-x.png"); Sanity returns a full CDN URL.
-const imgSrc = (w) =>
-  /^https?:\/\//.test(w.image || "") ? w.image : `/assets/img/${w.image}`;
+// Local JSON stores a filename ("work-x.png"); Sanity returns a full CDN URL;
+// the media library stores a root-relative URL ("/media/x.png").
+const imgSrc = (w) => {
+  const v = w.image || "";
+  if (/^https?:\/\//.test(v)) return v;
+  if (v.startsWith("/")) return v;
+  return `/assets/img/${v}`;
+};
 
 /* ------------------------------------------------------------------ */
 /* Shared fragments                                                    */
@@ -439,6 +444,12 @@ await emit("commission.html", "pages/commission.html", {
 /* static assets */
 await cp(path.join(SRC, "assets", "img"), path.join(DIST, "assets", "img"), { recursive: true });
 await cp(path.join(SRC, "assets", "js"), path.join(DIST, "assets", "js"), { recursive: true });
+
+/* uploaded media (from the admin library) → served at /media/<file> */
+const MEDIA_SRC = path.join(ROOT, "public", "media");
+if (existsSync(MEDIA_SRC)) {
+  await cp(MEDIA_SRC, path.join(DIST, "media"), { recursive: true });
+}
 
 /* 404 */
 await writeFile(

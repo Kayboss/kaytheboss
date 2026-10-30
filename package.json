@@ -5,16 +5,25 @@
   "description": "KAYTHEBOSS — Graphic Design Studio. Static site with case studies and journal.",
   "type": "module",
   "scripts": {
-    "build": "node build.mjs && npm run build:css",
+    "build": "node --env-file-if-exists=.env build.mjs && npm run build:css",
     "build:css": "tailwindcss -i src/assets/css/site.css -o dist/assets/css/app.css --minify",
     "watch:css": "tailwindcss -i src/assets/css/site.css -o dist/assets/css/app.css --watch",
     "verify": "node verify.mjs",
-    "dev": "npm run build && node preview.mjs",
-    "serve": "node preview.mjs",
-    "preview": "npm run build && node preview.mjs",
+    "dev": "npm run build && node --env-file-if-exists=.env preview.mjs",
+    "dev:all": "node dev-all.mjs",
+    "serve": "node --env-file-if-exists=.env preview.mjs",
+    "preview": "npm run build && node --env-file-if-exists=.env preview.mjs",
     "cms:dev": "npm --prefix admin run dev",
     "cms:build": "npm --prefix admin run build",
-    "cms:deploy": "npm --prefix admin run deploy"
+    "cms:deploy": "npm --prefix admin run deploy",
+    "api:install": "npm --prefix server install",
+    "api:dev": "npm --prefix server run dev",
+    "api:start": "npm --prefix server run start",
+    "api:migrate": "npm --prefix server run db:migrate",
+    "api:seed": "npm --prefix server run db:seed",
+    "api:user:add": "npm --prefix server run user:add",
+    "api:user:passwd": "npm --prefix server run user:passwd --",
+    "content:export": "node --env-file-if-exists=.env server/src/db/export-content.mjs"
   },
   "devDependencies": {
     "tailwindcss": "^3.4.17"
