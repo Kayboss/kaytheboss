@@ -21,7 +21,10 @@ services:
     plan: 0.5c-512mb
     region: frankfurt
     rootDir: server
-    buildCommand: npm ci
+    buildCommand: npm ci --ignore-scripts
+    # --ignore-scripts matters: better-sqlite3 13 ships prebuilt binaries for
+    # linux-x64, but npm otherwise tries a node-gyp source build, which needs
+    # Python and a C++ toolchain.
     # migrate = apply Drizzle migrations, bootstrap = seed content + first
     # admin user on a brand-new empty database (no-op afterwards).
     startCommand: npm run db:migrate && npm run db:bootstrap && npm start

@@ -8,8 +8,12 @@ Fastify + SQLite + Drizzle for content API and a server-rendered admin.
 
    ```bash
    cd server
-   npm install
+   npm install --ignore-scripts
    ```
+
+   `--ignore-scripts` is needed because better-sqlite3 13 ships prebuilt
+   binaries but npm otherwise attempts a `node-gyp` source build, which fails
+   on machines without Python and a C++ toolchain (e.g. a plain Windows box).
 
    (depends: fastify, @fastify/cookie, @fastify/formbody, better-sqlite3, drizzle-orm, drizzle-kit)
 
@@ -160,7 +164,7 @@ service; Vercel keeps building the static site from the API at build time.
 4. Each deploy runs:
 
    ```
-   npm ci
+   npm ci --ignore-scripts  # prebuilt better-sqlite3, no node-gyp
    npm run db:migrate      # apply Drizzle migrations
    npm run db:bootstrap    # seed content + first admin user, no-op after that
    npm start               # listens on 0.0.0.0:$PORT
