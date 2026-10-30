@@ -18,18 +18,10 @@ shots/
 .env.*
 !.env.example
 
-# Sanity (credentials stay local until committed deliberately)
-.studio/
-.env.sanity
-
 # OS / editor
 .DS_Store
 Thumbs.db
-*.log
-
-# sanity var backup of dataset
-*.sanity-backup-*.tar.gz
-server/node_modules
+*.logserver/node_modules
 server/data
 server/.env
 server/*.db

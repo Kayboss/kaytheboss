@@ -1,13 +1,12 @@
 /* ------------------------------------------------------------------ */
 /* POST /api/commission                                                */
-/* Receives a project enquiry, drafts a reply, stores it in Sanity and */
-/* emails the owner. The client never receives the draft directly -    */
-/* the owner reviews and sends. Node req/res, works on Vercel and in    */
-/* the local preview server.                                           */
+/* Receives a project enquiry, drafts a reply and emails it to the     */
+/* owner. The client never receives the draft directly - the owner     */
+/* reviews and sends. Node req/res, works on Vercel and in the local   */
+/* preview server.                                                     */
 /* ------------------------------------------------------------------ */
 
 import { draftReply } from "./_lib/draft.js";
-import { saveEnquiry } from "./_lib/sanity.js";
 import { emailEnquiry } from "./_lib/email.js";
 import { STUDIO } from "./_lib/studio.js";
 
@@ -55,7 +54,6 @@ export default async function handler(req, res) {
     return json(res, 200, {
       ok: true,
       configured: {
-        sanity: Boolean(process.env.SANITY_PROJECT_ID && process.env.SANITY_API_TOKEN),
         llm: Boolean(process.env.ANTHROPIC_API_KEY || process.env.OPENAI_API_KEY),
         email: Boolean(process.env.RESEND_API_KEY),
       },
@@ -123,13 +121,11 @@ export default async function handler(req, res) {
   }
   enquiry.draftReply = draft;
 
-  /* 2. Store it in Sanity (non-fatal). */
-  await saveEnquiry(enquiry);
-
-  /* 2b. Mirror it into the local admin inbox (non-fatal, never blocks). */
+  /* 2. Mirror it into the admin inbox when one is configured
+     (non-fatal, never blocks). */
   await mirrorToInbox(enquiry);
 
-  /* 3. Email the owner (non-fatal - if email fails but Sanity saved, still ok). */
+  /* 3. Email the owner (non-fatal - the visitor still gets a thank-you). */
   await emailEnquiry(enquiry);
 
   /* 4. Tell the visitor their note landed. Generic on purpose. */

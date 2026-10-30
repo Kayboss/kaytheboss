@@ -90,7 +90,7 @@ async function render(rel, data) {
 }
 
 /* ------------------------------------------------------------------ */
-/* Template sanity check                                               */
+/* Template brace check                                                */
 /* ------------------------------------------------------------------ */
 
 /**
@@ -150,8 +150,8 @@ const fmtDate = (iso) =>
 const workHref = (w) => `/work/${w.slug}.html`;
 const postHref = (p) => `/journal/${p.slug}.html`;
 
-// Local JSON stores a filename ("work-x.png"); Sanity returns a full CDN URL;
-// the media library stores a root-relative URL ("/media/x.png").
+// A hosted API returns a full URL; local JSON stores a filename
+// ("work-x.png"); the media library stores a root-relative URL ("/media/x.png").
 const imgSrc = (w) => {
   const v = w.image || "";
   if (/^https?:\/\//.test(v)) return v;

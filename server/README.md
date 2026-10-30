@@ -91,7 +91,7 @@ Set env on Vercel (or when building):
 - CONTENT_API_URL=https://your-backend.example  (origin only — no `/api` suffix)
 - CONTENT_API_TOKEN=optional
 
-`content/loader.mjs` prefers CONTENT_API_URL → fetches `/api/content`; falls back to Sanity/local JSON.
+`content/loader.mjs` prefers CONTENT_API_URL → fetches `/api/content`; otherwise it reads the committed JSON.
 `api/commission.js` posts new enquiries to `/api/enquiry` on the same origin, which
 is what puts them in the admin inbox.
 
