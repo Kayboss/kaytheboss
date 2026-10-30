@@ -1,5 +1,9 @@
 # Render blueprint for the self-hosted admin + content API.
 #
+# OPTIONAL. This costs ~$7.25/mo (paid instance + 1 GB disk). If you keep the
+# admin local instead, delete this file: the live site still works because
+# api/commission.js emails enquiries through Resend on its own.
+#
 # Deploy: push this repo to GitHub, then in Render choose
 # New -> Blueprint and pick the repo. Render reads this file, creates the
 # service and the disk, and prompts for the secret env vars marked below.

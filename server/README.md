@@ -117,14 +117,37 @@ Workflow:
    the build will silently fall back to JSON anyway. (If the admin is hosted
    on Render instead, see the next section.)
 
+### Where live enquiries go without a hosted admin
+
+`api/commission.js` emails every submission to the studio inbox through
+Resend (`api/_lib/email.js`), with the AI draft appended. That path does not
+need the admin at all — set these on Vercel:
+
+- `RESEND_API_KEY` — **required**; without it the function logs the enquiry
+  to the Vercel function logs and the visitor still sees a success message,
+  so you would lose the enquiry silently
+- `ENQUIRY_FROM_EMAIL` — a verified Resend domain address, e.g.
+  `KAYTHEBOSS <hello@kaytheboss.studio>`
+  (`onboarding@resend.dev` only delivers to the Resend account owner)
+- `ENQUIRY_TO_EMAIL` — defaults to `commissions@kaytheboss.studio`
+
+Leave `CONTENT_API_URL` unset: the inbox mirror is then skipped, and nothing
+tries to reach your machine. You reply from your mail client instead of the
+admin, and the enquiry is not stored in the local database.
+
 Images uploaded through the admin land in `public/media/`. That folder is
 gitignored except for `.gitkeep`, so uploads only exist on this machine —
 commit or copy them separately if they need to appear on the live site.
 
-## Deploying the admin on Render
+## Deploying the admin on Render (optional, costs money)
 
-The admin, the content API and the SQLite database can live on one Render web
-service; Vercel keeps building the static site from the API at build time.
+Skip this section if you are keeping the admin local: Render needs a paid
+instance type because free services have no persistent disk, so the SQLite
+database would be wiped on every restart.
+
+If you do want a hosted admin (inbox + in-admin replies), the admin, the
+content API and the SQLite database can live on one Render web service;
+Vercel keeps building the static site from the API at build time.
 `render.yaml` in the repo root describes the whole thing.
 
 **Before you start**
