@@ -5,6 +5,10 @@ node_modules/
 dist/
 build/
 
+# uploaded media (runtime data; copied into dist/ on build)
+public/media/*
+!public/media/.gitkeep
+
 # local tooling / screenshots
 shots/
 .opencode/
@@ -25,3 +29,12 @@ Thumbs.db
 
 # sanity var backup of dataset
 *.sanity-backup-*.tar.gz
+server/node_modules
+server/data
+server/.env
+server/*.db
+server/*.db-shm
+server/*.db-wal
+
+/data/
+

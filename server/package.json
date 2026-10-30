@@ -1,0 +1,25 @@
+{
+  "name": "kaytheboss-api",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "KAYTHEBOSS self-hosted backend: content API + admin (Fastify + SQLite + Drizzle).",
+  "scripts": {
+    "dev": "node --env-file-if-exists=.env --watch src/start.js",
+    "start": "node --env-file-if-exists=.env src/start.js",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "node --env-file-if-exists=.env src/db/migrate.mjs",
+    "db:seed": "node --env-file-if-exists=.env src/db/seed.mjs",
+    "db:bootstrap": "node --env-file-if-exists=.env src/db/bootstrap.mjs",
+    "user:add": "node --env-file-if-exists=.env src/db/add-user.mjs",
+    "user:passwd": "node --env-file-if-exists=.env src/db/set-password.mjs"
+  },
+  "dependencies": {
+    "@fastify/cookie": "^11.1.3",
+    "@fastify/formbody": "^9.0.1",
+    "better-sqlite3": "^13.0.3",
+    "drizzle-kit": "^0.31.11",
+    "drizzle-orm": "^0.45.4",
+    "fastify": "^5.12.7"
+  }
+}
