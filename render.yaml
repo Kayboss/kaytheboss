@@ -1,0 +1,57 @@
+# Render blueprint for the self-hosted admin + content API.
+#
+# Deploy: push this repo to GitHub, then in Render choose
+# New -> Blueprint and pick the repo. Render reads this file, creates the
+# service and the disk, and prompts for the secret env vars marked below.
+#
+# The site itself stays on Vercel and reads content from this service at
+# build time (set CONTENT_API_URL on Vercel to https://<service>.onrender.com).
+#
+# Needs a paid instance type: Render's free plan has no persistent disk,
+# so the SQLite file (admin content + enquiries) would be wiped on every
+# restart or deploy. 0.5c-512mb is the smallest paid plan (~$7/mo + $0.25/GB disk).
+#
+# Note: attaching a disk disables zero-downtime deploys, so a deploy briefly
+# takes the admin offline (the public site on Vercel is unaffected).
+
+services:
+  - type: web
+    name: kaytheboss-admin
+    runtime: node
+    plan: 0.5c-512mb
+    region: frankfurt
+    rootDir: server
+    buildCommand: npm ci
+    # migrate = apply Drizzle migrations, bootstrap = seed content + first
+    # admin user on a brand-new empty database (no-op afterwards).
+    startCommand: npm run db:migrate && npm run db:bootstrap && npm start
+    healthCheckPath: /api/health
+    autoDeployTrigger: commit
+    disk:
+      name: kaytheboss-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: NODE_VERSION
+        value: 22.11.0
+      - key: NODE_ENV
+        value: production
+      # Render routes traffic to 0.0.0.0, never loopback.
+      - key: HOST
+        value: 0.0.0.0
+      # Everything that must survive a deploy lives on the disk.
+      - key: DATABASE_URL
+        value: /var/data/kaytheboss.db
+      - key: MEDIA_DIR
+        value: /var/data/media
+      # Secrets: Render asks for these on first deploy (sync: false).
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: RESEND_API_KEY
+        sync: false
+      - key: ENQUIRY_FROM_EMAIL
+        sync: false
+      - key: ENQUIRY_TO_EMAIL
+        sync: false
