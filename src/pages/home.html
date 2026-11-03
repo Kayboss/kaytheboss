@@ -16,7 +16,7 @@
     <!-- interactive 3D background, with the image underneath as a fallback -->
     <div aria-hidden="true" class="hero-anim-layer absolute inset-0 pointer-events-none">
       <canvas class="hero-anim-canvas block w-full h-full" id="hero-3d"></canvas>
-      <img alt="" id="hero-poster" class="hero-anim-poster absolute inset-0 w-full h-full object-cover object-center opacity-45" src="/assets/img/studio-sculpture.png" fetchpriority="high" decoding="async">
+      <img alt="Glass and brushed titanium sculpture on a basalt plinth" id="hero-poster" class="hero-anim-poster absolute inset-0 w-full h-full object-cover object-center opacity-45" src="/assets/img/studio-sculpture.jpg" width="512" height="279" fetchpriority="high" decoding="async">
     </div>
     <!-- readability scrim: dark at the left where the text sits, fading right -->
     <div aria-hidden="true" class="absolute inset-0 pointer-events-none" style="background:linear-gradient(100deg, rgba(8,8,10,0.97) 0%, rgba(8,8,10,0.9) 38%, rgba(8,8,10,0.55) 65%, rgba(8,8,10,0.3) 100%)"></div>
@@ -38,8 +38,8 @@
         <p class="hero-lede font-body-lg text-body-lg text-[#d2c6a2] max-w-2xl leading-relaxed text-lg">KAYTHEBOSS is a design studio that takes the time to understand what your brand's problem is, and then designs solutions such as Product Labels, Visual Identities, Apps and Websites that make you stand out.</p>
 
         <div class="pt-space-md flex flex-wrap items-center gap-space-md">
-          <a href="/commission.html" class="hero-cta gold-cta btn-magnetic font-label-lg text-label-lg uppercase tracking-wider bg-[#F5C842] text-black px-space-lg py-space-md font-bold flex items-center gap-space-xs group">START A PROJECT <span aria-hidden="true" class="material-symbols-outlined text-base group-hover:translate-x-1.5 transition-transform duration-300">arrow_forward</span></a>
-          <a href="/work/" class="hero-cta btn-ghost-magnetic teal-cta font-label-lg text-label-lg uppercase tracking-wider border text-white px-space-md py-space-md flex items-center gap-space-xs group"><span aria-hidden="true" class="material-symbols-outlined text-base group-hover:rotate-12 transition-transform duration-300">grid_view</span>SEE THE WORK</a>
+          <a href="/commission.html" class="hero-cta gold-cta btn-magnetic font-label-lg text-label-lg uppercase tracking-wider bg-[#F5C842] text-black px-space-lg py-space-md font-bold flex items-center gap-space-xs group">START A PROJECT <svg class="w-4 h-4 group-hover:translate-x-1.5 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
+          <a href="/work/" class="hero-cta btn-ghost-magnetic teal-cta font-label-lg text-label-lg uppercase tracking-wider border text-white px-space-md py-space-md flex items-center gap-space-xs group"><svg class="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>SEE THE WORK</a>
         </div>
 
 
@@ -99,7 +99,7 @@
       <div class="mt-space-md flex justify-end">
         <a href="/work/" class="btn-ghost-magnetic inline-flex items-center gap-space-xs font-label-md text-label-md uppercase tracking-wider border border-[#332e1f] text-white px-space-md py-space-sm group">
           <span class="text-[#F5C842] border-b border-[#F5C842]/40 group-hover:border-[#ffe08f]">SEE ALL {{ totalWork }} PROJECTS</span>
-          <span aria-hidden="true" class="material-symbols-outlined text-base text-[#F5C842] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform">north_east</span>
+          <span aria-hidden="true" class="text-[#F5C842] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
         </a>
       </div>
     </div>
@@ -112,7 +112,7 @@
       <div>
         <h2 class="font-display text-headline-lg uppercase text-white font-bold">TIPS FROM THE STUDIO</h2>
       </div>
-      <a href="/journal/" class="font-label-md text-label-md uppercase text-[#F5C842] hover:text-[#ffe08f] transition-colors flex items-center gap-space-xs md:mt-0 mt-space-sm group"><span class="border-b border-[#F5C842]/40 group-hover:border-[#ffe08f]">READ ALL NOTES</span><span aria-hidden="true" class="material-symbols-outlined text-base group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform">north_east</span></a>
+      <a href="/journal/" class="font-label-md text-label-md uppercase text-[#F5C842] hover:text-[#ffe08f] transition-colors flex items-center gap-space-xs md:mt-0 mt-space-sm group"><span class="border-b border-[#F5C842]/40 group-hover:border-[#ffe08f]">READ ALL NOTES</span><span aria-hidden="true" class="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span></a>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
       <a href="/journal/latency-is-a-design-problem.html" class="interactive-card reveal-item bg-[#121316] border border-[#332e1f] p-space-lg group flex flex-col">
