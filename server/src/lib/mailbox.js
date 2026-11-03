@@ -19,8 +19,10 @@
 import { ImapFlow } from "imapflow";
 import { simpleParser } from "mailparser";
 import {
+  adoptSyncedOutbound,
   findEnquiryId,
   hasExternalKey,
+  hasMessageId,
   insertMessage,
   messageFromParsed,
 } from "./message.js";
@@ -56,6 +58,14 @@ export const mailboxConfigured = () => Boolean(mailboxConfig());
 export function storeParsed(parsed, { folder, uid, uidvalidity, direction }) {
   const row = messageFromParsed(parsed, { folder, uid, uidvalidity, direction });
   if (!row.externalKey || hasExternalKey(row.externalKey)) return { added: false };
+
+  /* The same mail can show up in more than one folder (INBOX + All Mail),
+     and a Sent copy can duplicate a reply the admin already recorded. */
+  if (row.messageId && hasMessageId(row.messageId)) return { added: false, duplicate: true };
+  if (row.direction === "out") {
+    const adopted = adoptSyncedOutbound(row);
+    if (adopted) return { added: false, adopted: true, id: adopted };
+  }
 
   row.enquiryId = findEnquiryId({
     direction: row.direction,

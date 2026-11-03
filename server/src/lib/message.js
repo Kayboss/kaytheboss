@@ -258,3 +258,43 @@ export function lastMessageForEnquiry(enquiryId) {
 export function hasExternalKey(key) {
   return Boolean(sqlite.prepare("SELECT 1 FROM messages WHERE external_key = ?").get(key));
 }
+
+export function hasMessageId(messageId) {
+  if (!messageId) return false;
+  return Boolean(
+    sqlite.prepare("SELECT 1 FROM messages WHERE message_id = ? LIMIT 1").get(messageId)
+  );
+}
+
+/* Replies sent from the admin are stored before the Sent folder syncs, so
+   their Message-ID is either empty or a Resend placeholder. When the real
+   copy arrives over IMAP we keep the row we already have (and its enquiry
+   link) and fill in the authoritative Message-ID + folder key. Without this
+   the same reply would appear twice in the thread. */
+export function adoptSyncedOutbound(row) {
+  if (!row.messageId || row.direction !== "out") return null;
+  const tolerance = 30 * 60_000;
+  const candidate = sqlite
+    .prepare(
+      `SELECT id FROM messages
+        WHERE direction = 'out'
+          AND source = 'sent'
+          AND lower(to_emails) = lower(?)
+          AND lower(subject) = lower(?)
+          AND abs(sent_at - ?) <= ?
+          AND (message_id = '' OR message_id LIKE '%@resend')
+        ORDER BY abs(sent_at - ?) ASC
+        LIMIT 1`
+    )
+    .get(row.toEmails ?? "", row.subject ?? "", row.sentAt, tolerance, row.sentAt);
+  if (!candidate) return null;
+
+  sqlite
+    .prepare(
+      `UPDATE messages
+          SET message_id = ?, source = ?, external_key = ?
+        WHERE id = ?`
+    )
+    .run(row.messageId, row.source ?? "", row.externalKey, candidate.id);
+  return candidate.id;
+}
