@@ -81,6 +81,48 @@ Env:
 - `ENQUIRY_TO_EMAIL` — owner notifications and the Reply-To address
   (default `commissions@kaytheboss.studio`)
 
+## Mailbox (IMAP sync)
+
+`/admin/mail` shows the studio mailbox inside the admin. While the admin
+process runs, a background poller pulls the newest messages from `INBOX` and
+the Sent folder, stores them in the `messages` table, and files each one under
+an enquiry when it can:
+
+1. by `In-Reply-To` / `References` headers (true thread), then
+2. by matching the visitor's address to an enquiry.
+
+Mail that matches neither is still stored and appears under **Unlinked**, so
+nothing is silently dropped. Sent replies from **Send reply** are recorded
+immediately; the Sent-folder sync just confirms them.
+
+Sync is on demand and every `IMAP_SYNC_MINUTES` (default 2) while the process
+runs. It does **not** run when the admin is closed — on a laptop, start the
+admin to catch up; the most recent `IMAP_FETCH_LIMIT` (default 40) messages per
+folder are scanned, and anything older than `IMAP_SINCE_DAYS` (default 30) is
+skipped. All limits are configurable.
+
+### Gmail / Google Workspace setup
+
+1. Turn on 2-Step Verification on the Google account.
+2. Google Account → Security → **App passwords** → create one for "Mail".
+3. In Gmail → Settings → Forwarding and POP/IMAP → **Enable IMAP**.
+4. Put the 16-character app password in `server/.env` (without the spaces
+   Google shows):
+
+```env
+IMAP_USER=commissions@kaytheboss.studio
+IMAP_PASSWORD=abcdefghijklmnop
+```
+
+Restart the admin, then open `/admin/mail` and press **Sync now**. Default
+folders are `INBOX` and `[Gmail]/Sent Mail`; change `IMAP_FOLDERS` (comma
+separated) if yours differ. With 2-Step Verification off, Gmail refuses app
+passwords — use a Google Workspace account or an app-specific password from
+your provider instead.
+
+Microsoft 365 does not support basic-auth IMAP, so it needs OAuth and is not
+covered by this sync.
+
 ## Database
 
 Data lives in `../data/kaytheboss.db` (SQLite). `schema.js` defines tables; `drizzle/` holds migrations.
@@ -179,6 +221,8 @@ Vercel keeps building the static site from the API at build time.
    | `RESEND_API_KEY` | optional — needed to send replies from the admin |
    | `ENQUIRY_FROM_EMAIL` | optional — e.g. `KAYTHEBOSS <hello@kaytheboss.studio>` |
    | `ENQUIRY_TO_EMAIL` | optional — defaults to `commissions@kaytheboss.studio` |
+   | `IMAP_USER` | optional — mailbox address, enables `/admin/mail` sync |
+   | `IMAP_PASSWORD` | optional — app password for that mailbox |
 
    `ADMIN_*` are only read while the database has no users, so changing them
    later does nothing. To reset the password, run

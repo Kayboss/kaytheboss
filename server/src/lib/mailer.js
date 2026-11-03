@@ -45,7 +45,10 @@ export async function sendEnquiryReply({ to, subject, text }) {
       console.error("[reply] Resend failed:", res.status, await res.text());
       return { sent: false, reason: `resend-${res.status}` };
     }
-    return { sent: true };
+    /* Resend returns { id } - stored with the outbound message so the
+       thread view can show it even before the Sent folder is synced. */
+    const data = await res.json().catch(() => ({}));
+    return { sent: true, id: data?.id ?? null };
   } catch (err) {
     console.error("[reply] Resend error:", err.message);
     return { sent: false, reason: "resend-error" };

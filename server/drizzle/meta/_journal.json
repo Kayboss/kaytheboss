@@ -15,6 +15,13 @@
       "when": 1792167255736,
       "tag": "0001_add_enquiries",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1793387709656,
+      "tag": "0002_add_messages",
+      "breakpoints": true
     }
   ]
 }

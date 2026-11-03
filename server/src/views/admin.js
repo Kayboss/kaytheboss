@@ -18,6 +18,7 @@ const ICONS = {
   menu: '<svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>',
   image: '<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg>',
   mail: '<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>',
+  inbox: '<svg viewBox="0 0 24 24"><path d="M4 4h16a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z"/><path d="M3 13h5l1.5 2.5h5L16 13h5"/></svg>',
   arrowLeft: '<svg viewBox="0 0 24 24"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>',
   check: '<svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>',
   copy: '<svg viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>',
@@ -33,6 +34,7 @@ const NAV = [
   { href: "/admin/journal", label: "Journal", icon: "file", match: "journal", count: "journal" },
   { href: "/admin/media", label: "Media", icon: "image", match: "media" },
   { href: "/admin/emails", label: "Emails", icon: "mail", match: "emails", count: "emails" },
+  { href: "/admin/mail", label: "Mail", icon: "inbox", match: "mail" },
   { href: "/admin/settings", label: "Settings", icon: "settings", match: "settings" },
 ];
 

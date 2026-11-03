@@ -642,7 +642,9 @@ const STATUS_LABEL = {
 const statusChip = (s) =>
   `<span class="status ${esc(s || "new")}">${esc(STATUS_LABEL[s] || s || "New")}</span>`;
 
-const emailRow = (e) => `
+const emailRow = (e, threadCounts = {}) => {
+  const n = threadCounts[e.id] || 0;
+  return `
   <a class="row-item email-row" href="/admin/emails/${e.id}"
      data-item
      data-status="${esc(e.status || "new")}"
@@ -655,6 +657,7 @@ const emailRow = (e) => `
         ${e.company ? `<span class="chip">${esc(e.company)}</span>` : ""}
         ${e.discipline ? `<span class="chip">${esc(e.discipline)}</span>` : ""}
         ${e.budget ? `<span class="chip">${esc(e.budget)}</span>` : ""}
+        ${n ? `<span class="chip chip-mail">${n} message${n === 1 ? "" : "s"}</span>` : ""}
       </span>
     </span>
     <span class="row-actions">
@@ -662,8 +665,9 @@ const emailRow = (e) => `
       ${statusChip(e.status)}
     </span>
   </a>`;
+};
 
-export const emailsList = ({ emails, counts, user, flash }) =>
+export const emailsList = ({ emails, counts, threadCounts = {}, user, flash }) =>
   layout({
     title: "Emails",
     subtitle: counts.all ? `${counts.all} enquir${counts.all === 1 ? "y" : "ies"}${counts.new ? ` · ${counts.new} new` : ""}` : "Commission enquiries",
@@ -671,6 +675,7 @@ export const emailsList = ({ emails, counts, user, flash }) =>
     counts: { emails: counts.new },
     user,
     flash,
+    actions: `<a class="btn btn-ghost" href="/admin/mail">${icon("inbox")} Mailbox</a>`,
     body: emails.length
       ? `
       <div data-list-root>
@@ -687,18 +692,50 @@ export const emailsList = ({ emails, counts, user, flash }) =>
             </select>
           </div>
         </div>
-        <div class="list">${emails.map(emailRow).join("")}</div>
+        <div class="list">${emails.map((e) => emailRow(e, threadCounts)).join("")}</div>
         <div class="empty hidden" data-no-results><h3>No matches</h3><p>Try a different search or status.</p></div>
       </div>`
       : `<div class="empty"><div class="icon">${icon("mail")}</div><h3>No emails yet</h3><p>Enquiries sent through the commission form will land here.</p></div>`,
   });
 
-export const emailDetail = ({ e, user, flash, mailConfigured = false }) => {
+const threadMsg = (m) => {
+  const out = m.direction === "out";
+  const who = out ? "You" : m.fromName || m.fromEmail || "Unknown sender";
+  const to = m.toEmails || m.ccEmails || "";
+  return `
+    <article class="thread-msg ${out ? "out" : "in"}">
+      <header>
+        <span class="avatar sm">${esc((who || "?").slice(0, 1).toUpperCase())}</span>
+        <span class="thread-who">
+          <strong>${esc(who)}</strong>
+          ${to ? `<span class="thread-to">to ${esc(to)}</span>` : ""}
+        </span>
+        <span class="when">${esc(fmtWhen(m.sentAt || m.createdAt))}</span>
+      </header>
+      ${m.subject && m.subject !== "—" ? `<div class="thread-subject">${esc(m.subject)}</div>` : ""}
+      <div class="thread-body">${esc(m.bodyText || m.snippet || "(empty message)")}</div>
+      <div class="thread-foot">
+        <span class="chip">${out ? "Sent" : "Received"}</span>
+        ${m.source ? `<span class="chip">${esc(m.source)}</span>` : ""}
+        <a class="thread-link" href="/admin/mail/${m.id}">Open in Mailbox</a>
+      </div>
+    </article>`;
+};
+
+export const emailDetail = ({ e, messages = [], user, flash, mailConfigured = false, mailboxConfigured = false }) => {
   const subject = "Re: your enquiry - KaytheBoss";
   const replyTo = `mailto:${e.email}?subject=${encodeURIComponent(subject)}`;
   const mailHint = mailConfigured
     ? "Review and edit, then send it straight from here"
     : "Review and edit. Sending is not set up yet - use Reply by email";
+  const thread = messages.length
+    ? messages.map(threadMsg).join("")
+    : `<div class="thread-empty">
+        <p>No synced mail on this thread yet.</p>
+        <p class="muted">${mailboxConfigured
+          ? "The mailbox is connected - new messages appear after the next sync."
+          : "Connect IMAP in server/.env to pull this conversation in from your mailbox."}</p>
+      </div>`;
   return layout({
     title: e.name || "Enquiry",
     subtitle: e.email,
@@ -715,6 +752,16 @@ export const emailDetail = ({ e, user, flash, mailConfigured = false }) => {
             <header><h3>Brief</h3><span class="desc">What they are asking for</span></header>
             <div class="body">
               <p class="email-brief">${esc(e.brief || "(no brief provided)")}</p>
+            </div>
+          </section>
+
+          <section class="form-section">
+            <header>
+              <h3>Conversation</h3>
+              <span class="desc">${messages.length ? `${messages.length} message${messages.length === 1 ? "" : "s"}` : "Synced from your mailbox"}</span>
+            </header>
+            <div class="body">
+              <div class="thread">${thread}</div>
             </div>
           </section>
 
@@ -791,6 +838,125 @@ export const emailDetail = ({ e, user, flash, mailConfigured = false }) => {
         </div>
       </div>
     </div>`,
+  });
+};
+
+/* ---------------- mailbox (synced mail) ---------------- */
+
+const mailRow = (m) => {
+  const out = m.direction === "out";
+  const who = out ? m.toEmails || m.ccEmails : m.fromName || m.fromEmail;
+  const linked = Boolean(m.enquiryId);
+  const title = m.subject || "(no subject)";
+  const search = [m.subject, m.fromName, m.fromEmail, m.toEmails, m.ccEmails, m.snippet, m.enquiryName, m.enquiryEmail]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+  return `
+  <a class="row-item email-row mail-row" href="/admin/mail/${m.id}"
+     data-item
+     data-link="${linked ? "linked" : "unlinked"}"
+     data-direction="${out ? "out" : "in"}"
+     data-search-text="${esc(search)}">
+    <span class="avatar sm">${esc((who || "?").slice(0, 1).toUpperCase())}</span>
+    <span class="row-main">
+      <span class="rt" style="display:block">${esc(title)}</span>
+      <span class="rs">
+        <span class="chip">${out ? "To" : "From"} ${esc(who || "unknown")}</span>
+        ${linked ? `<span class="chip chip-mail">${esc(m.enquiryName || m.enquiryEmail || "Enquiry")}</span>` : `<span class="chip">Unlinked</span>`}
+      </span>
+      <span class="mail-snippet">${esc(m.snippet || "(empty message)")}</span>
+    </span>
+    <span class="row-actions">
+      <span class="when">${esc(fmtWhen(m.sentAt || m.createdAt))}</span>
+      <span class="direction ${out ? "out" : "in"}">${out ? "Sent" : "Received"}</span>
+    </span>
+  </a>`;
+};
+
+export const mailList = ({ messages = [], counts = {}, filter = "", configured = false, user, flash }) =>
+  layout({
+    title: "Mailbox",
+    subtitle: counts.total
+      ? `${counts.total} synced message${counts.total === 1 ? "" : "s"}${counts.unlinked ? ` · ${counts.unlinked} unlinked` : ""}`
+      : "Synced mail from your studio inbox",
+    active: "mail",
+    user,
+    flash,
+    actions: `<form method="post" action="/admin/mail/sync">
+        <button class="btn btn-primary btn-sm" type="submit" ${configured ? "" : `disabled title="Add IMAP_USER and IMAP_PASSWORD to server/.env"`}>${icon("inbox")} Sync now</button>
+      </form>`,
+    body: `
+      ${configured
+        ? ""
+        : `<div class="notice notice-warn"><strong>IMAP is not connected.</strong> Add <code>IMAP_USER</code> and <code>IMAP_PASSWORD</code> to <code>server/.env</code>, then restart the admin. See <code>server/README.md</code> for a Gmail app password.</div>`}
+      ${messages.length
+        ? `
+        <div data-list-root>
+          <div class="toolbar">
+            <div class="search">${icon("search")}<input type="text" data-search placeholder="Search subject, sender, recipient or preview…" /></div>
+            <div class="filters">
+              <select data-filter="link" style="width:auto">
+                <option value="">All mail</option>
+                <option value="linked"${filter === "linked" ? " selected" : ""}>Linked to enquiries</option>
+                <option value="unlinked"${filter === "unlinked" ? " selected" : ""}>Unlinked</option>
+              </select>
+              <select data-filter="direction" style="width:auto">
+                <option value="">Both directions</option>
+                <option value="in">Received</option>
+                <option value="out">Sent</option>
+              </select>
+            </div>
+          </div>
+          <div class="list">${messages.map(mailRow).join("")}</div>
+          <div class="empty hidden" data-no-results><h3>No matches</h3><p>Try a different search or filter.</p></div>
+        </div>`
+        : `<div class="empty"><div class="icon">${icon("inbox")}</div><h3>No synced mail yet</h3><p>${configured
+            ? "Click Sync now to pull the newest messages from INBOX and Sent. The admin also syncs in the background while it runs."
+            : "Connect a mailbox over IMAP and the newest messages will appear here."}</p></div>`}
+    `,
+  });
+
+export const mailDetail = ({ m, enquiry = null, user, flash }) => {
+  const out = m.direction === "out";
+  return layout({
+    title: m.subject || "(no subject)",
+    subtitle: out ? `Sent to ${m.toEmails || "—"}` : `From ${m.fromName || m.fromEmail || "—"}`,
+    active: "mail",
+    user,
+    flash,
+    actions: `<a class="btn btn-ghost" href="/admin/mail">${icon("arrowLeft")} Mailbox</a>
+      ${enquiry ? `<a class="btn btn-ghost" href="/admin/emails/${enquiry.id}">${icon("mail")} Open enquiry</a>` : ""}`,
+    body: `
+      <div class="mail-detail">
+        <section class="form-section">
+          <header>
+            <h3>${esc(m.subject || "(no subject)")}</h3>
+            <span class="desc">${esc(fmtWhen(m.sentAt || m.createdAt))}</span>
+          </header>
+          <div class="body">
+            <div class="kv"><span class="k">From</span><span class="v">${esc(m.fromName ? `${m.fromName} <${m.fromEmail}>` : m.fromEmail || "—")}</span></div>
+            <div class="kv"><span class="k">To</span><span class="v">${esc(m.toEmails || "—")}</span></div>
+            ${m.ccEmails ? `<div class="kv"><span class="k">Cc</span><span class="v">${esc(m.ccEmails)}</span></div>` : ""}
+            <div class="kv"><span class="k">Direction</span><span class="v">${out ? "Sent from the studio" : "Received"}</span></div>
+            <div class="kv"><span class="k">Folder</span><span class="v">${esc(m.source || "—")}</span></div>
+            <div class="kv"><span class="k">Enquiry</span><span class="v">${enquiry
+              ? `<a href="/admin/emails/${enquiry.id}">${esc(enquiry.name || enquiry.email)}</a>`
+              : `<span class="muted">Not linked to an enquiry</span>`}</span></div>
+          </div>
+        </section>
+
+        <section class="form-section">
+          <header><h3>Message</h3></header>
+          <div class="body">
+            <div class="thread-body thread-body-full">${esc(m.bodyText || m.snippet || "(empty message)")}</div>
+          </div>
+        </section>
+
+        ${enquiry
+          ? `<p class="muted" style="font-size:13px">This message is filed under <a href="/admin/emails/${enquiry.id}">${esc(enquiry.name || enquiry.email)}</a>.</p>`
+          : `<p class="muted" style="font-size:13px">No matching enquiry was found for this message, so it is stored on its own.</p>`}
+      </div>`,
   });
 };
 

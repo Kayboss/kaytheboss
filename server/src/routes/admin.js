@@ -22,6 +22,15 @@ import {
   deleteEnquiry,
 } from "../lib/content.js";
 import { mailConfigured, sendEnquiryReply } from "../lib/mailer.js";
+import {
+  insertMessage,
+  messagesForEnquiry,
+  messageCounts,
+  messageCountsByEnquiry,
+  recentMessages,
+  getMessage,
+} from "../lib/message.js";
+import { mailboxConfigured, syncMailbox } from "../lib/mailbox.js";
 import { sqlite, ROOT } from "../db/client.js";
 import {
   dashboard,
@@ -33,6 +42,8 @@ import {
   journalList,
   emailsList,
   emailDetail,
+  mailList,
+  mailDetail,
   mediaLibrary,
 } from "../views/admin-forms.js";
 import {
@@ -124,6 +135,8 @@ function journalFromBody(slug, b) {
 
 function flashOf(request) {
   const q = request.query || {};
+  if (q.note) return { type: q.err ? "err" : "ok", message: String(q.note) };
+  if (q.synced) return { type: "ok", message: "Mailbox synced." };
   if (q.saved) return { type: "ok", message: "Changes saved." };
   if (q.sent) return { type: "ok", message: "Reply sent." };
   if (q.deleted) return { type: "ok", message: "Item deleted." };
@@ -414,6 +427,7 @@ export default async function adminRoutes(app) {
       emailsList({
         emails: allEnquiries(status),
         counts: enquiryCounts(),
+        threadCounts: messageCountsByEnquiry(),
         user: request.user,
         flash: flashOf(request),
       })
@@ -424,11 +438,24 @@ export default async function adminRoutes(app) {
     const e = getEnquiry(coerceInt(request.params.id, -1));
     if (!e) {
       return reply.code(404).type("text/html").send(
-        emailsList({ emails: allEnquiries(), counts: enquiryCounts(), user: request.user, flash: { type: "err", message: "Enquiry not found." } })
+        emailsList({
+          emails: allEnquiries(),
+          counts: enquiryCounts(),
+          threadCounts: messageCountsByEnquiry(),
+          user: request.user,
+          flash: { type: "err", message: "Enquiry not found." },
+        })
       );
     }
     return reply.type("text/html").send(
-      emailDetail({ e, user: request.user, flash: flashOf(request), mailConfigured: mailConfigured() })
+      emailDetail({
+        e,
+        messages: messagesForEnquiry(e.id),
+        user: request.user,
+        flash: flashOf(request),
+        mailConfigured: mailConfigured(),
+        mailboxConfigured: mailboxConfigured(),
+      })
     );
   });
 
@@ -475,8 +502,82 @@ export default async function adminRoutes(app) {
       return reply.redirect(`/admin/emails/${id}?err=${encodeURIComponent(message)}`);
     }
 
+    /* Record the sent reply so the conversation shows it immediately,
+       without waiting for the Sent folder to sync over IMAP. A storage
+       failure must not make a successful send look like an error. */
+    try {
+      const fromRaw = process.env.ENQUIRY_FROM_EMAIL || "commissions@kaytheboss.studio";
+      const fromEmail = (fromRaw.match(/<([^>]+)>/)?.[1] || fromRaw).trim();
+      insertMessage({
+        enquiryId: id,
+        direction: "out",
+        source: "sent",
+        externalKey: `sent:${id}:${Date.now()}`,
+        messageId: result.id ? `${result.id}@resend` : "",
+        fromName: "KAYTHEBOSS",
+        fromEmail,
+        toEmails: e.email,
+        subject,
+        snippet: text.replace(/\s+/g, " ").slice(0, 220),
+        bodyText: text,
+        sentAt: Date.now(),
+      });
+    } catch (err) {
+      request.log.warn({ err }, "[mail] reply sent but could not be stored");
+    }
+
     updateEnquiryStatus(id, "replied");
     return reply.redirect(`/admin/emails/${id}?sent=1`);
+  });
+
+  /* ---------------- Mailbox (IMAP sync) ---------------- */
+
+  app.get("/admin/mail", { preHandler: requireAuth }, async (request, reply) => {
+    const filter = request.query?.filter ? String(request.query.filter) : "";
+    const messages = recentMessages(200).filter((m) => {
+      if (filter === "unlinked") return !m.enquiryId;
+      if (filter === "linked") return Boolean(m.enquiryId);
+      return true;
+    });
+    return reply.type("text/html").send(
+      mailList({
+        messages,
+        counts: messageCounts(),
+        filter,
+        configured: mailboxConfigured(),
+        user: request.user,
+        flash: flashOf(request),
+      })
+    );
+  });
+
+  app.post("/admin/mail/sync", { preHandler: requireAuth }, async (request, reply) => {
+    if (!mailboxConfigured()) {
+      return reply.redirect(
+        `/admin/mail?err=${encodeURIComponent("IMAP is not configured. Add IMAP_USER and IMAP_PASSWORD to server/.env, then restart.")}`
+      );
+    }
+    try {
+      const r = await syncMailbox({ log: request.log });
+      const message = r.skipped
+        ? "Sync skipped - IMAP is not configured."
+        : `Synced ${r.scanned} message${r.scanned === 1 ? "" : "s"}: ${r.added} new, ${r.linked} linked to enquiries.${r.errors.length ? ` ${r.errors.length} error(s).` : ""}`;
+      return reply.redirect(`/admin/mail?${r.errors.length ? "err" : "synced"}=1&note=${encodeURIComponent(message)}`);
+    } catch (err) {
+      request.log.warn({ err }, "[mail] manual sync failed");
+      return reply.redirect(`/admin/mail?err=${encodeURIComponent(`Sync failed: ${err.message}`)}`);
+    }
+  });
+
+  app.get("/admin/mail/:id", { preHandler: requireAuth }, async (request, reply) => {
+    const m = getMessage(coerceInt(request.params.id, -1));
+    if (!m) {
+      return reply.redirect(`/admin/mail?err=${encodeURIComponent("Message not found.")}`);
+    }
+    const enquiry = m.enquiryId ? getEnquiry(m.enquiryId) : null;
+    return reply.type("text/html").send(
+      mailDetail({ m, enquiry, user: request.user, flash: flashOf(request) })
+    );
   });
 
   app.post("/admin/emails/:id/delete", { preHandler: requireAuth }, async (request, reply) => {

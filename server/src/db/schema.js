@@ -108,3 +108,40 @@ export const enquiries = sqliteTable("enquiries", {
   createdAt: integer("created_at").notNull().$defaultFn(() => Date.now()),
   updatedAt: integer("updated_at").notNull().$defaultFn(() => Date.now()),
 });
+
+/* ---------------------------------------------------------------- */
+/* Messages: mail synced from the studio mailbox (IMAP) plus copies  */
+/* of replies sent from the admin. One thread per enquiry.           */
+/* ---------------------------------------------------------------- */
+
+export const messages = sqliteTable(
+  "messages",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    enquiryId: integer("enquiry_id").references(() => enquiries.id, {
+      onDelete: "cascade",
+    }),
+    direction: text("direction").notNull().default("in"), // in|out
+    /* Where it came from: IMAP folder name, or "sent" for admin replies. */
+    source: text("source").notNull().default(""),
+    /* Stable dedupe key: folder:uidvalidity:uid, or sent:<enquiry>:<ts>. */
+    externalKey: text("external_key").notNull().unique(),
+    messageId: text("message_id").notNull().default(""),
+    inReplyTo: text("in_reply_to").notNull().default(""),
+    references: text("references").notNull().default(""),
+    fromName: text("from_name").notNull().default(""),
+    fromEmail: text("from_email").notNull().default(""),
+    toEmails: text("to_emails").notNull().default(""),
+    ccEmails: text("cc_emails").notNull().default(""),
+    subject: text("subject").notNull().default(""),
+    snippet: text("snippet").notNull().default(""),
+    bodyText: text("body_text").notNull().default(""),
+    sentAt: integer("sent_at").notNull().default(0),
+    createdAt: integer("created_at").notNull().$defaultFn(() => Date.now()),
+  },
+  (t) => ({
+    enquiryIdx: index("messages_enquiry_idx").on(t.enquiryId),
+    sentIdx: index("messages_sent_idx").on(t.sentAt),
+    messageIdIdx: index("messages_message_id_idx").on(t.messageId),
+  })
+);

@@ -62,3 +62,5 @@ services:
         sync: false
       - key: ENQUIRY_TO_EMAIL
         sync: false
+      # IMAP mailbox sync is opt-in. Add IMAP_USER + IMAP_PASSWORD in the
+      # Render dashboard (Environment) to enable /admin/mail; see README.
