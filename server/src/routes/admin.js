@@ -60,6 +60,11 @@ import {
   getUserForToken,
   destroySession,
 } from "../lib/auth.js";
+import {
+  loginBlocked,
+  recordLoginFailure,
+  clearLoginFailures,
+} from "../lib/ratelimit.js";
 
 const ASSET_DIR = path.join(ROOT, "server", "src", "assets");
 const IMG_DIR = path.join(ROOT, "src", "assets", "img");
@@ -70,7 +75,6 @@ const MIME = {
   ".jpeg": "image/jpeg",
   ".webp": "image/webp",
   ".gif": "image/gif",
-  ".svg": "image/svg+xml",
   ".avif": "image/avif",
 };
 
@@ -92,6 +96,31 @@ function parseOutcome(v) {
 function coerceInt(v, def = 0) {
   const n = Number(v);
   return Number.isFinite(n) ? Math.trunc(n) : def;
+}
+
+/* Admin POSTs must come from the admin itself. Browsers send Origin on
+   cross-origin POSTs, so a foreign site cannot drive a logged-in session
+   even if a cookie were attached. Requests without either header (curl,
+   same-origin form posts from very old browsers) are allowed. */
+function sameOrigin(request) {
+  const allowed = new Set();
+  const host = request.headers.host;
+  if (host) {
+    allowed.add(`http://${host}`);
+    allowed.add(`https://${host}`);
+  }
+  for (const value of String(process.env.ADMIN_ORIGIN || "").split(",")) {
+    const origin = value.trim().replace(/\/$/, "");
+    if (origin) allowed.add(origin);
+  }
+
+  const source = request.headers.origin || request.headers.referer;
+  if (!source) return true;
+  try {
+    return allowed.has(new URL(source).origin);
+  } catch {
+    return false;
+  }
 }
 
 function workFromBody(slug, b) {
@@ -152,6 +181,14 @@ export default async function adminRoutes(app) {
     request.user = user;
   };
 
+  /* State-changing admin requests must originate from this admin. */
+  app.addHook("preHandler", async (request, reply) => {
+    if (!["POST", "PUT", "PATCH", "DELETE"].includes(request.method)) return;
+    if (!sameOrigin(request)) {
+      return reply.code(403).type("text/plain").send("Cross-origin request blocked.");
+    }
+  });
+
   /* ---------------- Static assets (public) ---------------- */
 
   app.get("/admin/assets/:file", async (request, reply) => {
@@ -189,7 +226,7 @@ export default async function adminRoutes(app) {
     if (!full) return reply.code(404).send("Not found");
     reply.header("X-Content-Type-Options", "nosniff");
     reply.header("Cache-Control", "public, max-age=31536000, immutable");
-    // Uploaded SVGs are untrusted: block scripts if opened directly.
+    // Uploads are untrusted: if one is ever opened directly, it cannot run scripts.
     reply.header("Content-Security-Policy", "default-src 'none'; style-src 'unsafe-inline'; sandbox");
     reply.type(mimeFor(full));
     return reply.send(createReadStream(full));
@@ -239,10 +276,29 @@ export default async function adminRoutes(app) {
 
   app.post("/admin/login", async (request, reply) => {
     const { email, password } = request.body || {};
+    const client = { ip: request.ip, email };
+
+    const limit = loginBlocked(client);
+    if (limit.blocked) {
+      const minutes = Math.max(1, Math.ceil(limit.retryAfter / 60));
+      return reply
+        .code(429)
+        .header("Retry-After", String(limit.retryAfter))
+        .type("text/html")
+        .send(
+          login(
+            `Too many attempts. Try again in ${minutes} minute${minutes === 1 ? "" : "s"}.`
+          )
+        );
+    }
+
     const user = authenticate(email, password);
     if (!user) {
+      recordLoginFailure(client);
       return reply.code(401).type("text/html").send(login("Invalid email or password"));
     }
+
+    clearLoginFailures(client);
     const { token, expiresAt } = createSession(user.id);
     reply.setCookie("admin_session", token, {
       httpOnly: true,

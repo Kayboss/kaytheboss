@@ -23,7 +23,24 @@ const TYPES = {
   ".webmanifest": "application/manifest+json",
 };
 
+const SECURITY_HEADERS = {
+  "X-Content-Type-Options": "nosniff",
+  "X-Frame-Options": "DENY",
+  "Referrer-Policy": "strict-origin-when-cross-origin",
+  "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=()",
+  "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+  "Content-Security-Policy":
+    "default-src 'self'; base-uri 'self'; object-src 'none'; " +
+    "frame-ancestors 'none'; form-action 'self'; img-src 'self' data:; " +
+    "connect-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
+    "script-src 'self'; font-src https://fonts.gstatic.com",
+};
+
 createServer(async (req, res) => {
+  for (const [name, value] of Object.entries(SECURITY_HEADERS)) {
+    res.setHeader(name, value);
+  }
+
   const url = decodeURIComponent(req.url.split("?")[0].split("#")[0]);
 
   /* API route (local dev, so the enquiry form can be tested without Vercel). */
@@ -59,4 +76,6 @@ createServer(async (req, res) => {
     res.writeHead(404, { "content-type": "text/html" });
     res.end(readFile(path.join(DIST, "404.html")).catch(() => "404"));
   }
-}).listen(4321, () => console.log("preview on http://localhost:4321"));
+}).listen(Number(process.env.PORT) || 4321, () =>
+  console.log(`preview on http://localhost:${Number(process.env.PORT) || 4321}`)
+);

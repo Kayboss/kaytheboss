@@ -537,7 +537,7 @@
     }
   }
 
-  var IMG_EXT = /\.(png|jpe?g|webp|gif|svg|avif)$/i;
+  var IMG_EXT = /\.(png|jpe?g|webp|gif|avif)$/i;
 
   function uploadFiles(files, scope, onEach) {
     var list = Array.prototype.slice.call(files || []).filter(function (f) {

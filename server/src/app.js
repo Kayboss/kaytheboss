@@ -13,6 +13,29 @@ export async function buildApp() {
     },
   });
 
+  /* Response hardening for every route. Routes may set a stricter value
+     (the media route does for CSP); existing headers are left alone. */
+  const SECURITY_HEADERS = {
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "DENY",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+    "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=()",
+    "Cross-Origin-Opener-Policy": "same-origin",
+    "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+    "Content-Security-Policy":
+      "default-src 'self'; base-uri 'self'; object-src 'none'; " +
+      "frame-ancestors 'none'; form-action 'self'; " +
+      "img-src 'self' data:; connect-src 'self'; " +
+      "style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'",
+  };
+
+  app.addHook("onSend", async (_request, reply, payload) => {
+    for (const [name, value] of Object.entries(SECURITY_HEADERS)) {
+      if (!reply.hasHeader(name)) reply.header(name, value);
+    }
+    return payload;
+  });
+
   await app.register(cookie, { parseOptions: {} });
   await app.register(formbody);
 

@@ -29,8 +29,15 @@ for (let i = 0; i < journal.length; i++) {
 }
 
 if (countUsers() === 0) {
-  const email = process.env.ADMIN_EMAIL || "admin@kaytheboss.studio";
-  const pass = process.env.ADMIN_PASSWORD || "change-me";
+  const email = process.env.ADMIN_EMAIL;
+  const pass = process.env.ADMIN_PASSWORD;
+  if (!email || !pass) {
+    console.error(
+      "No admin user yet. Set ADMIN_EMAIL and ADMIN_PASSWORD, then run db:seed again."
+    );
+    sqlite.close();
+    process.exit(1);
+  }
   createUser(email, pass);
   console.log(`created admin user: ${email} / (password set)`);
 } else {

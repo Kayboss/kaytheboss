@@ -1,5 +1,5 @@
 /* Hash passwords with Node's built-in scrypt (no extra deps). */
-import { randomBytes, scryptSync, timingSafeEqual } from "node:crypto";
+import { createHash, randomBytes, scryptSync, timingSafeEqual } from "node:crypto";
 
 const N = 16384; // CPU/memory cost
 const KEYLEN = 64;
@@ -27,6 +27,8 @@ export function newSessionToken() {
   return { token, hash: hashToken(token) };
 }
 
+/* Session tokens are 256 bits of random entropy, so a plain SHA-256 digest
+   is enough; scrypt here would only add latency to every request. */
 export function hashToken(token) {
-  return scryptSync(token, "kaytheboss-session", 32).toString("hex");
+  return createHash("sha256").update(String(token)).digest("hex");
 }

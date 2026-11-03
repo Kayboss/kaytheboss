@@ -123,6 +123,26 @@ your provider instead.
 Microsoft 365 does not support basic-auth IMAP, so it needs OAuth and is not
 covered by this sync.
 
+## Security
+
+- Every response carries `X-Content-Type-Options`, `X-Frame-Options`,
+  `Referrer-Policy`, `Permissions-Policy`, HSTS and a CSP. The static site gets
+  the same headers from `vercel.json` (and `preview.mjs` locally).
+- Login is throttled: 5 failed attempts per IP or email in 15 minutes, then
+  `429` with `Retry-After`. Counters live in memory, so restarting the admin
+  clears them. A failed login for an unknown email still runs the password
+  hash, so response time does not reveal which accounts exist.
+- Admin `POST`/`PUT`/`PATCH`/`DELETE` requests must come from the admin's own
+  origin. If you serve the admin behind another hostname, set `ADMIN_ORIGIN`
+  (comma-separated origins) so those requests are allowed.
+- Session tokens are stored as SHA-256 digests; only the cookie holds the raw
+  token.
+- Uploads are identified by their magic bytes, not the file extension. PNG,
+  JPG, WEBP, GIF and AVIF are accepted; SVG is rejected because it can carry
+  script.
+- `db:seed` and `user:add` refuse to create a user without an explicit
+  password — there is no default login.
+
 ## Database
 
 Data lives in `../data/kaytheboss.db` (SQLite). `schema.js` defines tables; `drizzle/` holds migrations.

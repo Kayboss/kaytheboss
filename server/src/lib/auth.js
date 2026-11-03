@@ -1,4 +1,5 @@
 import { eq, lt } from "drizzle-orm";
+import { randomBytes } from "node:crypto";
 import { db, schema } from "../db/client.js";
 import {
   hashPassword,
@@ -8,6 +9,11 @@ import {
 } from "./crypto.js";
 
 const SESSION_TTL_MS = 1000 * 60 * 60 * 24 * 14; // 14 days
+
+/* A real scrypt hash of a random throwaway password. Checking it when the
+   email is unknown makes a failed login take the same time as a real one,
+   so response timing does not reveal which addresses have accounts. */
+const DUMMY_PASSWORD_HASH = hashPassword(randomBytes(32).toString("hex"));
 
 /* ---------------------------------------------------------------- */
 /* Users                                                             */
@@ -36,7 +42,10 @@ export function findUserByEmail(email) {
 
 export function authenticate(email, password) {
   const user = findUserByEmail(email);
-  if (!user) return null;
+  if (!user) {
+    verifyPassword(String(password ?? ""), DUMMY_PASSWORD_HASH);
+    return null;
+  }
   if (!verifyPassword(password, user.passwordHash)) return null;
   return user;
 }

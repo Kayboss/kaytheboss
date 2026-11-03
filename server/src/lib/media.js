@@ -24,7 +24,6 @@ export const ALLOWED_EXT = new Set([
   ".jpeg",
   ".webp",
   ".gif",
-  ".svg",
   ".avif",
 ]);
 
@@ -34,9 +33,47 @@ const MIME = {
   ".jpeg": "image/jpeg",
   ".webp": "image/webp",
   ".gif": "image/gif",
-  ".svg": "image/svg+xml",
   ".avif": "image/avif",
 };
+
+/* Trust the bytes, not the filename. Returns the matching extension or
+   null. SVG is deliberately unsupported: uploaded SVGs can carry script. */
+function sniffImage(buffer) {
+  if (!Buffer.isBuffer(buffer) || buffer.length < 12) return null;
+
+  if (
+    buffer[0] === 0x89 &&
+    buffer[1] === 0x50 &&
+    buffer[2] === 0x4e &&
+    buffer[3] === 0x47 &&
+    buffer[4] === 0x0d &&
+    buffer[5] === 0x0a &&
+    buffer[6] === 0x1a &&
+    buffer[7] === 0x0a
+  ) {
+    return ".png";
+  }
+  if (buffer[0] === 0xff && buffer[1] === 0xd8 && buffer[2] === 0xff) {
+    return ".jpg";
+  }
+
+  const head = buffer.subarray(0, 6).toString("ascii");
+  if (head === "GIF87a" || head === "GIF89a") return ".gif";
+
+  if (
+    buffer.subarray(0, 4).toString("ascii") === "RIFF" &&
+    buffer.subarray(8, 12).toString("ascii") === "WEBP"
+  ) {
+    return ".webp";
+  }
+
+  if (buffer.subarray(4, 8).toString("ascii") === "ftyp") {
+    const brand = buffer.subarray(8, 12).toString("ascii");
+    if (brand === "avif" || brand === "avis") return ".avif";
+  }
+
+  return null;
+}
 
 const extOf = (name) => path.extname(String(name || "")).toLowerCase();
 const fullPath = (name) => path.join(MEDIA_DIR, name);
@@ -49,13 +86,9 @@ export function ensureMediaDir() {
   mkdirSync(MEDIA_DIR, { recursive: true });
 }
 
-function splitName(original) {
+function splitName(original, ext) {
   const base = path.basename(String(original || ""));
-  const ext = extOf(base);
-  if (!ALLOWED_EXT.has(ext)) {
-    throw new Error("Unsupported file type. Use PNG, JPG, WEBP, GIF, SVG or AVIF.");
-  }
-  let stem = base.slice(0, base.length - ext.length);
+  let stem = base.slice(0, base.length - path.extname(base).length);
   stem = stem
     .toLowerCase()
     .replace(/[^a-z0-9._-]+/g, "-")
@@ -94,8 +127,12 @@ export function saveUpload(buffer, originalName) {
   if (buffer.length > MAX_UPLOAD_BYTES) {
     throw new Error("File is larger than 12 MB");
   }
-  const { stem, ext } = splitName(originalName);
-  const name = uniqueName(stem, ext);
+  const detected = sniffImage(buffer);
+  if (!detected) {
+    throw new Error("Unsupported image. Upload a PNG, JPG, WEBP, GIF or AVIF file.");
+  }
+  const { stem } = splitName(originalName, detected);
+  const name = uniqueName(stem, detected);
   writeFileSync(fullPath(name), buffer);
   return { name, url: MEDIA_URL(name), size: buffer.length };
 }

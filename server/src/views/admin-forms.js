@@ -47,7 +47,7 @@ const mediaField = (value) => {
         <div class="media-drop-hint">
           ${icon("plus")}
           <span><strong>Drop an image</strong> or click to upload</span>
-          <span class="media-drop-sub">PNG · JPG · WEBP · GIF · SVG · AVIF — up to 12 MB</span>
+          <span class="media-drop-sub">PNG · JPG · WEBP · GIF · AVIF — up to 12 MB</span>
         </div>
       </div>
       <div class="media-bar">
